@@ -170,7 +170,7 @@
             <strong>Account Name</strong>
             <br>
             <div class="form-group">
-              <input class="form-control" name="AcctName" type="text" required readonly>
+              <input class="form-control" id="accountName" name="AcctName" type="text" required readonly>
             </div>
           </div>
         </div>
@@ -182,8 +182,6 @@
       </div>
     <?php }?>
     </div>
-
-
 </form>
  </div>
 
@@ -221,16 +219,14 @@
   <script>
     $("#bankName").change((e) => {
       e.preventDefault();
-      // let data = {};
-      // data.accountNum = document.querySelector("#account").value;
-      // data.bankCode = document.querySelector("#bank").value;
-      // if (data.accountNum && data.bankCode) {
         $.ajax({
           type: 'GET',
           url: "get-user-bank-detail.php",
           data: $("#getUserName").serialize(),
           success: function (response) {
-            console.log(response);
+            response = JSON.parse(response);
+            let accountName = response.data.account_name;
+            $("#accountName").val(accountName);
           },
           error: function (xhr) {
             alert('Error!  Status = ' + xhr.status + " Message = " + xhr.statusText);
