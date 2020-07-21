@@ -1,0 +1,348 @@
+<?php 
+  	require("includes/config.php");
+ 	require_once(ROOT_PATH . "core/frontEnd-wrapper.php");
+
+  	$testimonials = $front->testimonials();
+
+	$pageTitle = 'Welcome to '.$siteInfo['site_name'];
+	$pageDesc = 'Welcome to '.$siteInfo['site_name'];
+	$pageKeywords = '';
+
+  include(ROOT_PATH."includes/header.php"); 
+?>
+<link href="user/assets/css/pages.css" rel="stylesheet" type="text/css" />
+<link href="user/assets/css/components.css" rel="stylesheet" type="text/css" />
+
+<div class="banner_agile_info_wthree">
+	<h2><?php echo $siteInfo['site_name'];?> Community</h2>
+</div>
+<div class="sleekslider" id="home">
+	<!-- Slider Pages -->
+	<div class="slide active bg-1">
+		<div class="slide-container">
+			<div class="slide-content">
+				<p class="wow fadeInLeft" data-wow-duration=".8s" data-wow-delay=".2s">A social financial platform</p>	
+			</div>
+
+		</div>
+	</div>
+
+	<div class="slide bg-2">
+		<div class="slide-container">
+			<div class="slide-content">
+				<p class="wow fadeInLeft" data-wow-duration=".8s" data-wow-delay=".4s">A social financial platform</p>	
+
+			</div>
+		</div>				
+	</div>
+
+	<div class="slide bg-3">
+		<div class="slide-container">
+			<div class="slide-content">
+					<p class="wow fadeInLeft" data-wow-duration=".8s" data-wow-delay=".2s">A social financial platform</p>	
+
+			</div>
+		</div>				
+	</div>
+
+	<div class="slide bg-4">
+		<div class="slide-container">
+			<div class="slide-content">
+				<p class="wow fadeInLeft" data-wow-duration=".8s" data-wow-delay=".4s">A social financial platform</p>	
+
+			</div>
+		</div>				
+	</div>
+
+	<div class="slide bg-5">
+		<div class="slide-container">
+			<div class="slide-content">
+				<p class="wow fadeInLeft" data-wow-duration=".8s" data-wow-delay=".2s">A social financial platform</p>
+			</div>
+		</div>				
+	</div>
+	
+
+	<!-- Navigation Arrows with Thumbnails -->
+	<nav class="nav-split">
+		<a class="prev" href="">
+			<span class="icon-wrap"><svg class="icon" width="22" height="22" viewBox="0 0 64 64"><use xlink:href="#arrow-left" /></svg></span>
+			<div>
+				<h3>test</h3>
+				<img alt="Previous thumb"/>
+			</div>
+		</a>
+		<a class="next" href="">
+			<span class="icon-wrap"><svg class="icon" width="22" height="22" viewBox="0 0 64 64"><use xlink:href="#arrow-right" /></svg></span>
+			<div>
+				<h3>test</h3>
+				<img alt="Next thumb"/>
+			</div>
+		</a>
+	</nav>
+
+	<!-- Pagination -->
+	<nav class="pagination">
+		<span class="current"></span>
+		<span></span>
+		<span></span>
+		<span></span>
+		<span></span>
+	</nav>
+
+</div>	
+<!--welcome-->
+
+</div>
+
+
+
+ <!--/about-w3layouts-agile-info-->
+<div class="about-w3layouts-agileinfo">
+	<div class="container">
+		<div class="about-top w3ls-agile">
+			<div class="col-md-12 come">
+				<div class="about-wel" style="text-align: center !important;">
+					<h3 class="title-w3-agileits" style="text-align: center !important;">Welcome To <?php echo $siteInfo['site_name'];?></h3>
+					<p> <?php echo $siteInfo['site_name'];?> is a social financial platform that has been designed for communities to donate money to each other directly, in a peer to peer method, where a large community of people donates money to each other.</p>
+				</div>
+
+			</div>
+			<div class="clearfix"> </div>
+		</div>
+	</div>
+</div>
+<!--//about-w3layouts-agile-info-->
+
+<!-- banner-bottom -->
+<div class="banner-bottom" style="background: #222;">
+<div class="tittle-agileinfo">
+	<h3 class="title-w3-agileits" style="color:#fff">How It Works</h3>
+</div>
+	<div class="col-md-4 col-sm-4 agileits_banner_bottom_left">
+		<div class="agileinfo_banner_bottom_pos">
+			<div class="w3_agileits_banner_bottom_pos_grid">
+				<div class="col-xs-4 wthree_banner_bottom_grid_left">
+					<div class="agile_banner_bottom_grid_left_grid hvr-radial-out">
+						<i class="fa fa-bicycle" aria-hidden="true"></i>
+					</div>
+				</div>
+				<div class="col-xs-8 wthree_banner_bottom_grid_right">	
+					<h4>Clean and Modern</h4>
+					<p>Morbi viverra lacus commodo felis semper, eu iaculis lectus feugiat.</p>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4 col-sm-4 agileits_banner_bottom_left">
+		<div class="agileinfo_banner_bottom_pos">
+			<div class="w3_agileits_banner_bottom_pos_grid">
+				<div class="col-xs-4 wthree_banner_bottom_grid_left">
+					<div class="agile_banner_bottom_grid_left_grid hvr-radial-out">
+						<i class="fa fa-car" aria-hidden="true"></i>
+					</div>
+				</div>
+				<div class="col-xs-8 wthree_banner_bottom_grid_right">	
+					<h4>Unique Design</h4>
+					<p>Morbi viverra lacus commodo felis semper, eu iaculis lectus feugiat.</p>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4 col-sm-4 agileits_banner_bottom_left">
+		<div class="agileinfo_banner_bottom_pos">
+			<div class="w3_agileits_banner_bottom_pos_grid">
+				<div class="col-xs-4 wthree_banner_bottom_grid_left">
+					<div class="agile_banner_bottom_grid_left_grid hvr-radial-out">
+						<i class="fa fa-plane" aria-hidden="true"></i>
+					</div>
+				</div>
+				<div class="col-xs-8 wthree_banner_bottom_grid_right">	
+					<h4>Fully Responsive</h4>
+					<p>Morbi viverra lacus commodo felis semper, eu iaculis lectus feugiat.</p>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	</div>
+		
+		
+	<div class="clearfix"> </div>
+</div>
+<!-- //banner-bottom -->
+
+<br><br>
+<br>
+<div class="about-w3layouts-agileinfo">
+	<div class="container">
+	<div class="tittle-agileinfo">
+		<h3 class="title-w3-agileits">Packages</h3>
+	</div>
+	<div class="row pricing-plan">
+	    <div class="col-md-12">
+	        <div class="row">
+	            <div class="col-sm-6 col-md-6 col-lg-2">
+	                <div class="price_card text-center">
+	                    <div class="pricing-header bg-primary">
+	                        <!-- <span class="price"><i class="fa fa-bicycle"></i></span>-->
+	                        <span class="name"><?php echo $siteInfo['site_name'];?> Copper</span>
+	                    </div>
+	                    <ul class="price-features">
+	                        <li><?php echo $configInfo['ph_percentage'].'% Return In '.$configInfo['ph_maturity']?> </li>
+
+	                        <li class="invest">Investment <br><?php echo $defaultCurrency['c_symbol'].number_format(10000);?></li>
+
+	                        <li class="profit">Profit + Investment <br><?php echo $defaultCurrency['c_symbol'].number_format(15000);?></li>
+
+	                        <li>100% Instant Merging</li>
+	                        <li>100% Automated</li>
+	                        <li>24x7 Support</li>
+	                    </ul>
+	                    <form action="user/register" method="post">
+	                      <input type="hidden" name="orderNow">
+	                      <button type="submit" name="Royacle-Bicycle" class="btn btn-primary w-md waves-effect waves-light">Order Now</button>
+	                    </form>
+	                </div> <!-- end Pricing_card -->
+	            </div> <!-- end col -->
+
+	            <div class="col-sm-6 col-md-6 col-lg-2">
+	                <div class="price_card text-center">
+	                    <div class="pricing-header bg-primary">
+	                        <!-- <span class="price"><i class="fa fa-bicycle"></i></span>-->
+	                        <span class="name"><?php echo $siteInfo['site_name'];?> Bronze</span>
+	                    </div>
+	                    <ul class="price-features">
+	                        <li><?php echo $configInfo['ph_percentage'].'% Return In '.$configInfo['ph_maturity']?> </li>
+
+	                        <li class="invest">Investment <br><?php echo $defaultCurrency['c_symbol'].number_format(20000);?></li>
+
+	                        <li class="profit">Profit + Investment <br><?php echo $defaultCurrency['c_symbol'].number_format(30000);?></li>
+
+	                        <li>100% Instant Merging</li>
+	                        <li>100% Automated</li>
+	                        <li>24x7 Support</li>
+	                    </ul>
+	                    <form action="user/register" method="post">
+	                      <input type="hidden" name="orderNow">
+	                      <button type="submit" name="Royacle-Bicycle" class="btn btn-primary w-md waves-effect waves-light">Order Now</button>
+	                    </form>
+	                </div> <!-- end Pricing_card -->
+	            </div> <!-- end col -->
+
+
+	            <div class="col-sm-6 col-md-6 col-lg-2">
+	                <div class="price_card text-center">
+	                    <div class="pricing-header bg-pink" style="background:#fb6d9d;">
+	                        <!-- <span class="price"><i class="fa fa-car"></i></span>-->
+	                        <span class="name"><?php echo $siteInfo['site_name'];?> Silver</span>
+	                    </div>
+	                    <ul class="price-features">
+	                        <li><?php echo $configInfo['ph_percentage'].'% Return In '.$configInfo['ph_maturity']?> </li>
+
+	                        <li class="invest">Investment <br><?php echo $defaultCurrency['c_symbol'].number_format(50000);?></li>
+
+	                        <li class="profit">Profit + Investment <br><?php echo $defaultCurrency['c_symbol'].number_format(75000);?></li>
+
+	                        <li>100% Instant Merging</li>
+	                        <li>100% Automated</li>
+	                        <li>24x7 Support</li>
+	                    </ul>
+	                    <form action="user/register" method="post">
+	                      <input type="hidden" name="orderNow">
+	                      <button type="submit" name="Royacle-Car" class="btn btn-pink w-md waves-effect waves-light">Order Now</button>
+	                    </form>
+	                </div>
+	            </div> <!-- end col -->
+
+	            <div class="col-sm-6 col-md-6 col-lg-3">
+	                <div class="price_card text-center">
+	                    <div class="pricing-header bg-purple" style="background: #7266ba;">
+	                        <!-- <span class="price"><i class="fa fa-plane"></i></span>-->
+	                        <span class="name"><?php echo $siteInfo['site_name'];?> Gold</span>
+	                    </div>
+	                    <ul class="price-features">
+	                        <li><?php echo $configInfo['ph_percentage'].'% Return In '.$configInfo['ph_maturity']?> </li>
+
+	                        <li class="invest">Investment <br><?php echo $defaultCurrency['c_symbol'].number_format(100000);?></li>
+
+	                        <li class="profit">Profit + Investment <br><?php echo $defaultCurrency['c_symbol'].number_format(150000);?></li>
+
+	                        <li>100% Instant Merging</li>
+	                        <li>100% Automated</li>
+	                        <li>24x7 Support</li>
+	                    </ul>
+	                    <form action="user/register" method="post">
+	                    <input type="hidden" name="orderNow">
+	                      <button type="submit" name="Royacle-Plane" class="btn btn-purple w-md waves-effect waves-light">Order Now</button>
+	                    </form>
+	                </div> <!-- end Pricing_card -->
+	            </div> <!-- end col -->
+
+	            <div class="col-sm-6 col-md-6 col-lg-3">
+	                <div class="price_card text-center">
+	                    <div class="pricing-header bg-success" style="background: #81c868;">
+	                        <!-- <span class="price"><i class="fa fa-fighter-jet"></i></span>-->
+	                        <span class="name"><?php echo $siteInfo['site_name'];?> Platinum</span>
+	                    </div>
+	                    <ul class="price-features">
+	                        <li><?php echo $configInfo['ph_percentage'].'% Return In '.$configInfo['ph_maturity']?> </li>
+
+	                        <li class="invest">Investment <br><?php echo $defaultCurrency['c_symbol'].number_format(200000);?></li>
+
+	                        <li class="profit">Profit + Investment <br><?php echo $defaultCurrency['c_symbol'].number_format(300000);?></li>
+
+	                        <li>100% Instant Merging</li>
+	                        <li>100% Automated</li>
+	                        <li>24x7 Support</li>
+	                    </ul>
+	                    <form action="user/register" method="post">
+	                      <input type="hidden" name="orderNow">
+	                      <button type="submit" name="Royacle-Jet" class="btn btn-success w-md waves-effect waves-light">Order Now</button>
+	                    </form>
+	                </div> <!-- end Pricing_card -->
+	            </div> <!-- end col -->
+
+	        </div> <!-- end row -->
+	    </div> <!-- end Col-10 -->
+	</div> <!-- end row -->
+	</div>
+</div>
+
+
+
+<?php if(!empty($testimonials)){?>
+	<!--team-->	
+	<div id="testimonial" class="testimonial">
+		<div class="tittle-agileinfo">
+			<h3 class="title-w3-agileits" style="color:#FFF;">Testimonials</h3>
+		</div>
+
+	<div class="sreen-gallery-cursual">
+
+	<div id="owl-demo" class="owl-carousel">
+<?php foreach ($testimonials as $testimony) {
+        $usnInfo = $front->userInfo($testimony['login_id']);?>
+	<div class="item-owl">
+		<div class="test-review">
+		<?php if($usnInfo['photo'] != ''){?>
+          	<img src="<?php echo BASE_URL.str_replace('../', '', $usnInfo['photo']);?>" class="img-responsive" alt="Participant">
+        <?php }else{?>         
+			<img src="images/avatar_m.png" class="img-responsive" alt=""/>
+        <?php }?>
+			<h5><?php echo $usnInfo['first_name'].' '.substr($usnInfo['last_name'], 0, 1);?></h5>
+			<span>Participant</span>
+			<p><?php echo nl2br($testimony['content']) ?></p>
+			
+		</div>
+	</div>
+	<?php }?>
+
+	</div>
+	<!--//screen-gallery-->
+	</div>
+	</div>
+	<!--team-->
+<?php }?>
+<?php include(ROOT_PATH."includes/footer.php"); ?>

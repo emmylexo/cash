@@ -1,0 +1,13 @@
+<option value="&#8358;">&#8358;</option>
+<option value="₵">₵</option>
+<option value="$">$</option>
+<option value="€">€</option>
+<option value="£">£</option>
+<option value="¥">¥</option>
+<option value="Lek">Lek</option>
+<option value="؋">؋</option>
+<option value="$">$</option>
+<option value="ƒ">ƒ</option>
+<option value="$">$</option>
+<option value="ман">ман</option>
+<option value="$">$</option>

@@ -1,0 +1,80 @@
+=======================================================
+Thanks you for purchasing this product
+Software developed by Harrison at www.ojaolawebsolution.com
+For Inquiry contact me at: webmaster@ojaolawebsolution.com
+=======================================================
+
+
+==========================================================
+Terms & Conditions
+==========================================================
+- This software product is a product of the developer and must not be redistributed by any person or group for personal or commercial purposes.
+
+- You purchased this software for single usage and it must be used in just one domain, its must not be distributed for any purpose.
+
+-By using this software product, you agreed to terms & conditions, privacy policies found in  www.ojaolawebsolution.com
+=======================================================
+Installation Guid:
+=======================================================
+- Upload the script zip file to your hosting server via: 
+- - cPanel => File Manager => Public_html
+- - Unzip the zip file
+- - Open the folder and move all files to your main directory
+- - locate includes/config.php and remove folder name on both ROOT_PATH and BASE_URL
+- - After editting, it should look like: define("BASE_URL","/"); and define("ROOT_PATH",$_SERVER["DOCUMENT_ROOT"] . "/");
+
+
+
+==========================================================
+Database Installation & Configuration:
+==========================================================
+- Firstly, you will need to create your database via cPanel => Mysql Database Wizard and follow the procedure
+- Once database is created, go back to your public directory
+- Locate includes/config.php and replace with your created database name, username and password accordingly under Database settings section
+- Back to cPanel dashboard, under databases, locate and click on phpMyAdmin
+- Depending on your server you may see a new page open
+- Once opened, select your database and click on import, to import the SQL Database file which is included on the zip file
+- Finally, you can now browse your site on any browser.
+- If the steps above is carefully followed, the site should load just fine, 
+- Otherwise, no worry, just email us your cPanel login info at webmaster@ojaolawebsolution.com
+
+============================================================
+How:
+============================================================
+To confirm user payment
+- Locate and click on "Merged Donor" from admin back-end, locate the users you want to confirm and click on "View" button to see details and take action
+
+To merge user;
+- Locate and click on "Manual Merging" menu from admin back-end
+- There are 2 sections, Payers and Payees
+- - Payers => These are users requesting to provide help
+- - Payees => These are users who already provided help and want to get help from other users
+
+To manually merge users, please do the following:
+- Select and click on any user on the payer list
+- Select and click on any user on payee list
+- Then click on "Proceed to merge" button.
+
+To add special users:
+- First create user account from the main site
+- Locate and clink on "Get Help"
+- Locate and click on "Add to List" button at the top right of Get Help list
+- there will be a popup box, select the user you want to add to get help
+- Click on "add" button to add to the list
+
+To Update email templates
+- you can do this from the source code at yoursite.com/emailTemplates
+- open any of the files you want to edit with any text editor 
+- ensure you edit the message text, etc correctly without affecting the codes.
+- NOTE: Dont temper with codes, variable, function, etc, unless you know what you are doing
+
+To Update SMS templates
+- you can do this from the source code at yoursite.com/smsTemplates
+- open any of the files you want to edit with any text editor 
+- ensure you edit the message text correctly without affecting the codes.
+- NOTE: Dont temper with codes, variable, function, etc, unless you know what you are doing
+
+==========AUTOMATED SETTINGS==================
+- Locate General Settings -> Configuration
+- The page is self explanatory, set them exactly as you want the system to automate user actions
+
