@@ -30,7 +30,7 @@
 
 	//Redirect Package page if user has not PH
 	if($countPHs < 1){
-		$genInfo->redirect(BASE_URL.'user/packages');
+		$genInfo->redirect(BASE_URL.'user/donation');
 		exit();
 	}
 ?>

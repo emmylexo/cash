@@ -110,7 +110,7 @@
     }
   }
 
-  $pageTitle = "Packages";
+  $pageTitle = "Donation";
   $pageDesc = "Description";
   $pageKeywords = "Keywords";
 
@@ -130,10 +130,10 @@
             <!-- Page-Title -->
             <div class="row">
                 <div class="col-sm-12">
-                    <h4 class="page-title">Packages</h4>
+                    <h4 class="page-title">Donation</h4>
                     <ol class="breadcrumb">
-                        <li><a href="<?php echo BASE_URL;?>user/">Dashoboard</a></li>
-                        <li class="active">Packages</li>
+                        <li><a href="<?php echo BASE_URL;?>user/">Dashboard</a></li>
+                        <li class="active">Donation</li>
                     </ol>
                 </div>
             </div>
@@ -158,18 +158,18 @@
     <div class="p-20">
     	<ul class="price-features">
                                 <li><?php echo $configInfo['ph_percentage'].'% Return In '.$configInfo['ph_maturity']?> </li>
-                                <li>20% Instant Merging</li>
+<!--                                <li>20% Instant Merging</li>-->
                                 <li>100% Automated</li>
                                 <li>24x7 Support</li>
                             </ul>
       <form action="" method="post">
         <div class="form-group">
-          <input class="form-control" type="number" name="phAmt" placeholder="Enter your order">
+          <input class="form-control" type="number" name="phAmt" placeholder="Donate">
         </div>
 
         <div class="form-group">
           <button type="submit" name="orderNow" class="btn btn-success w-md waves-effect waves-light">
-          Order Now</button>
+          Donate Now</button>
         </div>
       </form>
     </div>

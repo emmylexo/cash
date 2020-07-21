@@ -33,7 +33,7 @@
     $rcomitAmt = ($recomitInfo['amount'] * $configInfo['recommit_perc']) / 100;
 
     if(!$recomitInfo['paid'] >= $rcomitAmt){
-      $error[] = "Oops! ".$configInfo['recommit_perc']."% recommitment payment is required to enable you make a successful GH request! <a href='".BASE_URL."user/packages'>Click here</a> to recommit.";
+      $error[] = "Oops! ".$configInfo['recommit_perc']."% recommitment payment is required to enable you make a successful GH request! <a href='".BASE_URL."user/donation'>Click here</a> to recommit.";
     }
 
 

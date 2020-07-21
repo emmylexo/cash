@@ -18,7 +18,7 @@
                     <i class="ti-settings"></i> <span>Account Settings </span> </a>
                     <ul class="list-unstyled">
                         <li><a href="<?php echo BASE_URL;?>user/profile">Profile</a></li>
-                        <li><a href="<?php echo BASE_URL;?>user/bank-details">Bank Detailscc</a></li>
+                        <li><a href="<?php echo BASE_URL;?>user/bank-details">Bank Details</a></li>
                         <li><a href="<?php echo BASE_URL;?>user/user-testimonials">Testimonials</a></li>
                         <li><a href="<?php echo BASE_URL;?>user/testimonial">Write Testimony</a></li>
                     </ul>
@@ -49,11 +49,11 @@
                     <span> Provide Help</span> </a>                    
                 </li>
 
-                <li>
-                    <a href="<?php echo BASE_URL;?>user/packages" 
-                    class="waves-effect"><i class=" ti-package"></i> 
-                    <span> Packages</span> </a>                    
-                </li>
+<!--                <li>-->
+<!--                    <a href="--><?php //echo BASE_URL;?><!--user/packages" -->
+<!--                    class="waves-effect"><i class=" ti-package"></i> -->
+<!--                    <span> Packages</span> </a>                    -->
+<!--                </li>-->
 
                 <li>
                     <a href="<?php echo BASE_URL;?>user/messages" 
