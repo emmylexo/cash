@@ -100,7 +100,7 @@
             <input class="form-control" name="AcctName" type="text" readonly value="<?php echo $bankInfo['account_name'];?>">
           </div>
         </div>
-        <div class="about-info-p">ca
+        <div class="about-info-p">
           <strong>Account Number</strong>
           <br>
            <div class="form-group">
