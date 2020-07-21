@@ -10,8 +10,8 @@
   //Update Information
   if(isset($_POST['AcctName'])) {
     $AcctName = strip_tags($_POST['AcctName']);
-    $acctNumber = strip_tags($_POST['acctNumber']);
-    $bank = strip_tags($_POST['bank']);
+    $acctNumber = strip_tags($_POST['account-number']);
+    $bank = strip_tags($_POST['bank-name-new']);
 
     if($AcctName == "") {
       $error[] = 'Please enter your Account Name!';
@@ -87,7 +87,7 @@
 
     <div class="col-md-6">
     
-    <form id="getUserName">
+    <form id="getUserName" method="post">
       <div class="card-box m-t-20">
       <h4 class="m-t-0 header-title"><b>Bank Information</b></h4>
       <p>Your bank information is required!</p>
@@ -97,14 +97,14 @@
           <strong>Account Name</strong>
           <br>
            <div class="form-group">
-            <input class="form-control" name="AcctName" type="text" readonly value="<?php echo $bankInfo['account_name'];?>">
+            <input class="form-control" name="AcctName" type="text" readonly required value="<?php echo $bankInfo['account_name'];?>">
           </div>
         </div>
-        <div class="about-info-p">ca
+        <div class="about-info-p">
           <strong>Account Number</strong>
           <br>
            <div class="form-group">
-            <input class="form-control" name="acctNumber" type="text" readonly value="<?php echo $bankInfo['account_number'];?>">
+            <input class="form-control" name="acctNumber" type="text" readonly required value="<?php echo $bankInfo['account_number'];?>">
           </div>
         </div>
 
@@ -112,7 +112,7 @@
           <strong>Name of Bank</strong>
           <br>
            <div class="form-group">
-            <input class="form-control" name="bank" type="text" readonly value="<?php echo $bankInfo['bank'];?>">
+            <input class="form-control" name="bank" type="text" readonly required value="<?php echo $bankInfo['bank'];?>">
           </div>
         </div>
       </div>
@@ -123,6 +123,7 @@
           <br>
            <div class="form-group">
             <input id="account" class="form-control" name="account-number" type="text" required minlength="10">
+            <input id="bankNameNew" class="form-control" name="bank-name-new" type="text" style="display: none" required>
           </div>
         </div>
 
@@ -227,6 +228,7 @@
             response = JSON.parse(response);
             let accountName = response.data.account_name;
             $("#accountName").val(accountName);
+            $("#bankNameNew").val($( "#bankName option:selected" ).text());
           },
           error: function (xhr) {
             alert('Error!  Status = ' + xhr.status + " Message = " + xhr.statusText);
