@@ -81,7 +81,7 @@
             $stmt->execute(array(':loginID'=>$loginID));
           }
         }
-        $genInfo->redirect(BASE_URL.'user/verification?phone-verified');
+        $genInfo->redirect(BASE_URL.'user/bank-details');
       }
       catch(PDOException $e) {
         echo $e->getMessage();
