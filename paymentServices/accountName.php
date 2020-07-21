@@ -4,7 +4,7 @@ function getUserBank($accountNum, $bankCode) {
   $curl = curl_init();
 
   curl_setopt_array($curl, array(
-      CURLOPT_URL => "https://api.paystack.co/bank/resolve?account_number=.$accountNum.&bank_code=.$bankCode",
+      CURLOPT_URL => "https://api.paystack.co/bank/resolve?account_number=".$accountNum."&bank_code=".$bankCode,
       CURLOPT_RETURNTRANSFER => true,
       CURLOPT_ENCODING => "",
       CURLOPT_MAXREDIRS => 10,
@@ -25,7 +25,7 @@ function getUserBank($accountNum, $bankCode) {
   if ($err) {
     echo "cURL Error #:" . $err;
   } else {
-    echo json_encode(array('format'=>$response));
+    echo $response;
   }
 }
 ?>
