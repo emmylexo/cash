@@ -2036,3 +2036,20 @@ body.fixed-left .side-menu.left {
 .waves-block {
   display: block;
 }
+
+
+.hideNav .content-page {
+  margin-left: 0 !important;
+}
+
+.hideNav .side-menu.left {
+  width: 0 !important;
+}
+
+.showNav .content-page {
+  margin-left: 240px !important;
+}
+
+.showNav .side-menu.left {
+  width: 240px !important;
+}

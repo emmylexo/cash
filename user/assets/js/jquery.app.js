@@ -299,3 +299,34 @@ var wow = new WOW(
   }
 );
 wow.init();
+
+jQuery(document).ready(function($) {
+  function replaceClass(id, oldClass, newClass) {
+    var elem = $(`#${id}`);
+    if (elem.hasClass(oldClass)) {
+      elem.removeClass(oldClass);
+    }
+    elem.addClass(newClass);
+  }
+
+  var alterClass = function() {
+    var ww = document.body.clientWidth;
+    if (ww < 780) {
+      $("#wrapper").removeClass('enlarged');
+      $("#wrapper").addClass('hideNav');
+
+      $(".button-menu-mobile").click(() => {
+        if ($("#wrapper").hasClass('hideNav')) {
+          $("#wrapper").removeClass('hideNav');
+        } else {
+          $("#wrapper").addClass('hideNav');
+        }
+      });
+    }
+  };
+  $(window).resize(function(){
+    alterClass();
+  });
+  //Fire it when the page first loads:
+  alterClass();
+});
