@@ -60,7 +60,7 @@
   </form>
   </div>
   <div class="col-sm-4">
-     <a href="<?php echo BASE_URL?>user/packages" class="btn btn-default btn-md waves-effect waves-light m-b-30"  data-overlayColor="#36404a"><i class="md md-add"></i> Make PH Request</a>
+     <a href="<?php echo BASE_URL?>user/donation" class="btn btn-default btn-md waves-effect waves-light m-b-30"  data-overlayColor="#36404a"><i class="md md-add"></i> Make PH Request</a>
   </div>
 </div>
 <div class="table-responsive">
