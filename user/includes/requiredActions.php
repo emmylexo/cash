@@ -16,7 +16,7 @@
 	}
 
 	//Redirect to verification if status is Pending
-	if($userInfo['status'] == 'Pending'){
+	if($userInfo['status'] == 'Pending' && $userInfo['sms_verify'] == 0){
 		$genInfo->redirect(BASE_URL.'user/verification');
 		exit();
 	}
@@ -28,8 +28,10 @@
 		exit();
 	}
 
+
+
 	//Redirect Package page if user has not PH
-	if($countPHs < 1){
+	if($countPHs < 1 && $userInfo['status'] == 'Active'){
 		$genInfo->redirect(BASE_URL.'user/donation');
 		exit();
 	}

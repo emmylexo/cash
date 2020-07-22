@@ -44,7 +44,7 @@
           $stmt->execute(array(':loginID'=>$loginID, ':AcctName'=>$AcctName, ':acctNumber'=>$acctNumber, ':bank'=>$bank, ':currentTime'=>$currentTime));
 
 
-          $genInfo->redirect(BASE_URL.'user/bank-details?updated');
+          $genInfo->redirect(BASE_URL.'user/bank_details');
           exit();
         }
       }
@@ -231,7 +231,7 @@
             $("#bankNameNew").val($( "#bankName option:selected" ).text());
           },
           error: function (xhr) {
-            alert('Error!  Status = ' + xhr.status + " Message = " + xhr.statusText);
+            console.log('Error!  Status = ' + xhr.status + " Message = " + xhr.statusText);
             //console.log('Error!  Status = ' + xhr.status + " Message = " +  xhr.statusText);
           }
         });

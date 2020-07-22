@@ -3,8 +3,8 @@
 	//Included in all files
 
 	// To access the DIRECTORY path
-	define("BASE_URL","/cash2/");
-	define("ROOT_PATH",$_SERVER["DOCUMENT_ROOT"] . "/cash2/");
+	define("BASE_URL","/");
+	define("ROOT_PATH",$_SERVER["DOCUMENT_ROOT"] . "/");
 	define("HOST", $_SERVER['HTTP_HOST']);
 
 define("PAYSTACK_SECRET", 'sk_test_161ac4134f11d458e53a5be059ac5778c70427a5');

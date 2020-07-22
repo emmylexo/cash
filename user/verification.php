@@ -62,9 +62,9 @@
         $stmt->execute(array(':loginID'=>$loginID, ':currentTime'=>$currentTime));
 
         //check if only SMS notification is enabled
-        if(/*(isset($configInfo['email_note']) */
+        /*if((isset($configInfo['email_note']) */
 //          AND $configInfo['email_note'] != 'Enabled')
-          /*AND*/ (isset($configInfo['sms_note'])
+          /*AND*/ /*(isset($configInfo['sms_note'])
           AND $configInfo['sms_note'] == 'Enabled')){
 
           //
@@ -72,15 +72,15 @@
             SET status='Active' 
             WHERE login_id=:loginID");
           $stmt->execute(array(':loginID'=>$loginID));
-        }
-        else{
+        }*/
+        /*else{
           if($userInfo["email_verify"] == 1){
             $stmt = $genInfo->runQuery("UPDATE users 
               SET status='Active' 
               WHERE login_id=:loginID");
             $stmt->execute(array(':loginID'=>$loginID));
           }
-        }
+        }*/
         $genInfo->redirect(BASE_URL.'user/bank-details');
       }
       catch(PDOException $e) {
