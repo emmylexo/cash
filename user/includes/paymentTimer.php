@@ -4,7 +4,7 @@
     $datetime = new DateTime($dbTimer);
     $timerT = $datetime->format('M d, Y  H:i:s');
 ?>
-var countDownDate = new Date("<?php echo $timerT; ?>").getTime();
+var countDownDate = new Date("21 august 2020").getTime();
 
 // Update the count down every 1 second
 var x = setInterval(function() {
