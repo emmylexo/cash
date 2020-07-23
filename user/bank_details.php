@@ -305,7 +305,7 @@
             <span style="font-size:20px; color:red;"> Activation fee is to be Paid to the Account to begin donation after payments upload prove of payment using the button below </span>
             <?php if($order['ord_status'] != 0){?>
             <form role="form" method="post" action="" enctype="multipart/form-data" style="float:left;"><br>
-              <input style="display:none" type="file" name="pop" id="pop" onchange="this.form.submit()";>
+              <input style="display:none" type="file" name="pop" id="pop" onchange="this.form.submit();">
             </form>
             <?php }?>
             <?php if($order['pop'] != ''){?>
