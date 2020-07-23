@@ -5,11 +5,8 @@
   require_once(ROOT_PATH . "user/includes/requiredActions.php");
 //  require_once(ROOT_PATH . "administrator/includes/bankDetails.php");
 
-
   //Receiver info
-
   $payeeInfo = $front->userInfo($order['payee_id']);
-  echo $payeeInfo;
   $bankInfo = $front->bankInfo($order['payee_id']);
 
   //Update pop
@@ -221,6 +218,23 @@
                       $updateNextNext = $genInfo->runQuery("UPDATE admin_turns SET next = '1' WHERE id > $i ORDER BY id ASC LIMIT 1");
                       $updateNextNext->execute();
 
+                    // Populate the order table.
+                    $orderAmount = 1000;
+                    $orderStatus = 0;
+                    $periodTimer = 'Jul 24, 2020 15:37:25';
+                    $datetime = new DateTime();
+                    $orderDate = $datetime->format('Y-M-d  H:i:s');
+                    $orderTable = $genInfo->runQuery("INSERT INTO orders (admin_id, payer_id, ord_amount, ord_status, period_timer, ord_date)
+            
+            VALUES(:admin_id, :payer_id, :ord_amount, :ord_status, :period_timer, :ord_date)");
+                    $orderTable->bindparam(":payer_id", $loginID);
+                    $orderTable->bindparam("admin_id", $admin['id']);
+                    $orderTable->bindparam(":ord_amount", $orderAmount);
+                    $orderTable->bindparam(":ord_status", $orderStatus);
+                    $orderTable->bindparam(":period_timer", $periodTimer);
+                    $orderTable->bindparam(":ord_date", $orderDate);
+                    $orderTable->execute();
+
                       unset($_SESSION['user-logged-in']);
                   } else {
 
@@ -303,6 +317,7 @@
             <?php }?>
             <br><br>
             <span style="font-size:20px; color:red;"> Activation fee is to be Paid to the Account to begin donation after payments upload prove of payment using the button below </span>
+            <label for="pop" class="btn btn-success btn-sm">Upload Prove of Payment </label>
             <?php if($order['ord_status'] != 0){?>
             <form role="form" method="post" action="" enctype="multipart/form-data" style="float:left;"><br>
               <input style="display:none" type="file" name="pop" id="pop" onchange="this.form.submit()";>
@@ -413,7 +428,6 @@
  
   </div>
 </div> <!-- container -->
-     <label for="pop" class="btn btn-success btn-sm">Upload Prove of Payment </label>          
 </div> <!-- content -->
 </div> <!-- content -->
 <?php include(ROOT_PATH."user/includes/footer.php");?>

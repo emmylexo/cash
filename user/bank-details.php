@@ -2,10 +2,9 @@
   require("../includes/config.php");
   require_once(ROOT_PATH . "core/frontEnd-wrapper.php"); 
   require_once(ROOT_PATH . "core/session.php");
-
-  
   //grab user account info
   $bankInfo = $front->bankInfo($loginID);
+$payeeInfo = $front->userInfo($order['payee_id']);
 
   //Update Information
   if(isset($_POST['AcctName'])) {
@@ -44,6 +43,8 @@
           $stmt->execute(array(':loginID'=>$loginID, ':AcctName'=>$AcctName, ':acctNumber'=>$acctNumber, ':bank'=>$bank, ':currentTime'=>$currentTime));
 
             $_SESSION['user-logged-in'] = true;
+
+
           $genInfo->redirect(BASE_URL.'user/bank_details');
           exit();
         }
