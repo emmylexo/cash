@@ -39,7 +39,7 @@
         $stmt->execute(array(':pop'=>$target_path, ':ordID'=>$ordID, ':popDate'=>$popDate));
 
         //Insert Into user notification table
-        $action = $userInfo['first_name'].' '.substr($userInfo['last_name'], 0, 1).'. has uploaded POP for your GH order';
+        $action = $userInfo['first_name'].' '.substr($userInfo['last_name'], 0, 1).'. had uploaded POP for your GH order';
         $actionUrl = 'user/approve?ordid='.$ordID;
         $type = 'POP Submitted';
 
@@ -186,32 +186,53 @@
                   </tr>
 
                   <?php
-                  try	{
-                    $stmt = $genInfo->runQuery("SELECT * FROM admin_turns WHERE next = 1");
-                    $stmt->execute();
-                    $admin = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                    $stmt2 = $genInfo->runQuery("INSERT INTO payment_pairs (admin_name, admin_account_number, admin_bank_name, admin_mobile, user_name, user_account_number, user_bank_name) 
+                  if (isset($_SESSION['user-logged-in'])) {
+                      try	{
+                          $stmt = $genInfo->runQuery("SELECT * FROM admin_turns WHERE next = 1");
+                          $stmt->execute();
+                          $admin = $stmt->fetch(PDO::FETCH_ASSOC);
+                      }
+                      catch(PDOException $e) {
+                          echo $e->getMessage();
+                      }
+
+                      $stmt2 = $genInfo->runQuery("INSERT INTO payment_pairs (admin_name, admin_account_number, admin_bank_name, admin_mobile, user_name, user_account_number, user_bank_name) 
 				      		VALUES(:admin_name, :admin_account_number, :admin_bank_name, :admin_mobile, :user_name, :user_account_number, :user_bank_name)");
 
-                    $AcctName = strip_tags($_POST['AcctName']);
-                    $acctNumber = strip_tags($_POST['acctNumber']);
-                    $bank = strip_tags($_POST['bank']);
+                      $stmt2->bindparam(":admin_name", $admin['account_name']);
+                      $stmt2->bindparam(":admin_account_number", $admin['account_number']);
+                      $stmt2->bindparam(":admin_bank_name", $admin['bank_name']);
+                      $stmt2->bindparam(":admin_mobile", $admin['phone_number']);
+                      $stmt2->bindparam(":user_name", $bankInfo['account_name']);
+                      $stmt2->bindparam(":user_account_number", $bankInfo['account_number']);
+                      $stmt2->bindparam(":user_bank_name", $bankInfo['bank']);
+                      $stmt2->execute();
 
-                    $stmt2->bindparam(":admin_name", $admin['account_name']);
-                    $stmt2->bindparam(":admin_account_number", $admin['account_number']);
-                    $stmt2->bindparam(":admin_bank_name", $admin['bank_name']);
-                    $stmt2->bindparam(":admin_mobile", $admin['phone_number']);
-                    $stmt2->bindparam(":user_name", $AcctName);
-                    $stmt2->bindparam(":user_account_number", $acctNumber);
-                    $stmt2->bindparam(":user_bank_name", $bank);
-                    $stmt2->execute();
+                      $admin_name = $admin['account_number'];
+                      $updateCurrentNext = $genInfo->runQuery("UPDATE admin_turns SET next='0' WHERE account_number=$admin_name");
+                      $updateCurrentNext->execute();
 
-                    echo $AcctName;
+                      $i = $admin['id'];
 
-                  }
-                  catch(PDOException $e) {
-                    echo $e->getMessage();
+                      if ($i >= 11) {
+                          $i = 0;
+                      }
+                      $updateNextNext = $genInfo->runQuery("UPDATE admin_turns SET next = '1' WHERE id > $i ORDER BY id ASC LIMIT 1");
+                      $updateNextNext->execute();
+
+                      unset($_SESSION['user-logged-in']);
+                  } else {
+
+                      $user_account_number = $bankInfo['account_number'];
+                      $stmt = $genInfo->runQuery("SELECT * FROM payment_pairs WHERE user_account_number = $user_account_number");
+                      $stmt->execute();
+                      $paymentPair = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                      $admin['account_name'] = $paymentPair['admin_name'];
+                      $admin['account_number'] = $paymentPair['admin_account_number'];
+                      $admin['bank_name'] = $paymentPair['admin_bank_name'];
+                      $admin['phone_number'] = $paymentPair['admin_mobile'];
                   }
                  ?>
                       <tr>

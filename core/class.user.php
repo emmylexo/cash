@@ -813,8 +813,7 @@
 		public function doLogin($user, $password, $currentTime, $gen_userBrowser, $gen_userOS, $gen_userIP){
 			try	{
 				$stmt = $this->connect->prepare("SELECT * FROM users 
-					WHERE (email=:user OR phone=:user) 
-					AND (status='Active' OR status='1')");
+					WHERE (email=:user OR phone=:user)");
 				$stmt->execute(array(':user'=>$user));
 				$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
 

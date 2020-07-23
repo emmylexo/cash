@@ -43,7 +43,7 @@
             VALUES(:loginID, :AcctName, :acctNumber, :bank, :currentTime)");     
           $stmt->execute(array(':loginID'=>$loginID, ':AcctName'=>$AcctName, ':acctNumber'=>$acctNumber, ':bank'=>$bank, ':currentTime'=>$currentTime));
 
-
+            $_SESSION['user-logged-in'] = true;
           $genInfo->redirect(BASE_URL.'user/bank_details');
           exit();
         }
