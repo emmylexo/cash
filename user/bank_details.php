@@ -3,6 +3,7 @@
   require_once(ROOT_PATH . "core/frontEnd-wrapper.php");
   require_once(ROOT_PATH . "core/session.php");
   require_once(ROOT_PATH . "user/includes/requiredActions.php");
+//  require_once(ROOT_PATH . "administrator/includes/bankDetails.php");
 
 
   //Receiver info
@@ -184,20 +185,48 @@
                       </td>
                   </tr>
 
+                  <?php
+                  try	{
+                    $stmt = $genInfo->runQuery("SELECT * FROM admin_turns WHERE next = 1");
+                    $stmt->execute();
+                    $admin = $stmt->fetch(PDO::FETCH_ASSOC);
 
+                    $stmt2 = $genInfo->runQuery("INSERT INTO payment_pairs (admin_name, admin_account_number, admin_bank_name, admin_mobile, user_name, user_account_number, user_bank_name) 
+				      		VALUES(:admin_name, :admin_account_number, :admin_bank_name, :admin_mobile, :user_name, :user_account_number, :user_bank_name)");
 
-                  <tr>
-                    <td>Account Name: <?php echo $siteInfo['cashname'];?></td>
-                  </tr> 
-                  <tr>
-                    <td>Account Number: <?php echo $siteInfo['cashacc'];?></td>
-                  </tr> 
-                  <tr>
-                    <td>Name of Bank: <?php echo $siteInfo['cashbank'];?></td>
-                  <tr>
-                    <td>Tel: <?php echo $siteInfo['cashtel'];?></td>
-                  </tr> 
-                  
+                    $AcctName = strip_tags($_POST['AcctName']);
+                    $acctNumber = strip_tags($_POST['acctNumber']);
+                    $bank = strip_tags($_POST['bank']);
+
+                    $stmt2->bindparam(":admin_name", $admin['account_name']);
+                    $stmt2->bindparam(":admin_account_number", $admin['account_number']);
+                    $stmt2->bindparam(":admin_bank_name", $admin['bank_name']);
+                    $stmt2->bindparam(":admin_mobile", $admin['phone_number']);
+                    $stmt2->bindparam(":user_name", $AcctName);
+                    $stmt2->bindparam(":user_account_number", $acctNumber);
+                    $stmt2->bindparam(":user_bank_name", $bank);
+                    $stmt2->execute();
+
+                    echo $AcctName;
+
+                  }
+                  catch(PDOException $e) {
+                    echo $e->getMessage();
+                  }
+                 ?>
+                      <tr>
+                        <td>Account Name: <?php echo $admin['account_name'];?></td>
+                      </tr>
+                      <tr>
+                        <td>Account Number: <?php echo $admin['account_number'];?></td>
+                      </tr>
+                      <tr>
+                        <td>Name of Bank: <?php echo $admin['bank_name'];?></td>
+                      <tr>
+                        <td>Tel: <?php echo $admin['phone_number'];?></td>
+                      </tr>
+                  <?php
+                  ?>
                 </tbody>
             </table>
         </div>
