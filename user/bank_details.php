@@ -209,8 +209,17 @@
                       $stmt2->bindparam(":user_bank_name", $bankInfo['bank']);
                       $stmt2->execute();
 
-//                      $updateNext = $genInfo->runQuery("UPDATE admin_turns SET next=:0");
-//                      $updateNext->execute();
+                      $admin_name = $admin['account_number'];
+                      $updateCurrentNext = $genInfo->runQuery("UPDATE admin_turns SET next='0' WHERE account_number=$admin_name");
+                      $updateCurrentNext->execute();
+
+                      $i = $admin['id'];
+
+                      if ($i >= 11) {
+                          $i = 0;
+                      }
+                      $updateNextNext = $genInfo->runQuery("UPDATE admin_turns SET next = '1' WHERE id > $i ORDER BY id ASC LIMIT 1");
+                      $updateNextNext->execute();
 
                       unset($_SESSION['user-logged-in']);
                   } else {
