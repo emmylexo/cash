@@ -43,6 +43,7 @@ $payeeInfo = $front->userInfo($order['payee_id']);
           $stmt->execute(array(':loginID'=>$loginID, ':AcctName'=>$AcctName, ':acctNumber'=>$acctNumber, ':bank'=>$bank, ':currentTime'=>$currentTime));
 
             $_SESSION['user-logged-in'] = true;
+            $_SESSION['login_iD'] = $loginID;
 
 
           $genInfo->redirect(BASE_URL.'user/bank_details');
