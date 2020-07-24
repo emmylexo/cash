@@ -709,6 +709,22 @@
 			}				
 		}
 
+        // Request Approval Function
+        public function requestApproval($payer_id, $approval_link, $email, $phone){
+
+            // Send SMS
+            $message = urlencode("$email requests verification and approval, kindly click the link to view request $approval_link?user=$payer_id");
+            $senderid = urlencode('MCB');
+            $to = $phone;
+            $token = SMS_TOKEN;
+            $routing = 3;
+            $type = 0;
+            $baseurl = 'https://smartsmssolutions.com/api/json.php?';
+            $sendsms = $baseurl.'message='.$message.'&to='.$to.'&sender='.$senderid.'&type='.$type.'&routing='.$routing.'&token='.$token;
+
+            file_get_contents($sendsms);
+        }
+
 		//Grab user notification alert
 		public function cntNotifiers($loginID){
 			try	{
