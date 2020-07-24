@@ -347,6 +347,7 @@ include(ROOT_PATH . "user/includes/navMenu.php");
                                     <?php if ($activationOrder['pop'] != '' and $activationOrder['ord_status'] == 2) { ?>
                                         <b>POP Uploaded - </b>
                                         <span style="font-size:20px; color:red;">Awaiting Confirmation</span>
+                                      <?php var_dump($activationOrder); ?>
                                     <?php } ?>
 
                                     <?php if ($activationOrder['ord_status'] == 1) { ?>
@@ -354,9 +355,9 @@ include(ROOT_PATH . "user/includes/navMenu.php");
                                         <span style="font-size:20px; color:green;">Payment Confirmed!</span>
                                     <?php } ?>
                                     <br><br>
-                                    <span style="font-size:20px; color:red; margin-bottom: 10px; display: block;"> Activation fee is to be Paid to the Account to begin donation after payments upload prove of payment using the button below </span>
+                                    <span style="font-size:20px; color:red; margin-bottom: 10px; display: block;"> Activation fee is to be Paid to the Account to begin donation after payments upload proof of payment using the button below </span>
                                     <?php if ($activationOrder['ord_status'] == 0) { ?>
-                                    <label for="pop" class="btn btn-success btn-sm">Upload Prove of Payment </label>
+                                    <label for="pop" class="btn btn-success btn-sm">Upload Proof of Payment </label>
                                     <form role="form" method="post" action="" enctype="multipart/form-data"
                                           style="float:left;"><br>
                                         <input style="display:none" type="file" name="pop" id="pop"
