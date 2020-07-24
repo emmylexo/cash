@@ -20,8 +20,8 @@ $activationOrder->execute();
 $activationOrder = $activationOrder->fetch(PDO::FETCH_ASSOC);
 
 //Receiver info
-  $payeeInfo = $front->userInfo($order['payee_id']);
-//  $bankInfo = $front->bankInfo($order['payee_id']);
+$payeeInfo = $front->userInfo($activationOrder['payee_id']);
+//  $bankInfo = $front->bankInfo($activationOrder['payee_id']);
 
 //Update pop
 if (isset($_FILES['pop']['name']) and $_FILES['pop']['name'] != "") {
@@ -44,30 +44,28 @@ if (isset($_FILES['pop']['name']) and $_FILES['pop']['name'] != "") {
             // Update
             //Set mature date, 6hours by default
             $popDate = date('Y-m-d H:i:s', strtotime($configInfo['pop_confirm'], strtotime(date("Y-m-d H:i:s"))));
-            $stmt = $genInfo->runQuery("UPDATE orders 
-          SET pop=:pop, ord_status=:ord_status, pop_date=:popDate
-          WHERE payer_id=:payer_id");
+            $stmt = $genInfo->runQuery("UPDATE orders SET pop=:pop, ord_status=:ord_status, pop_date=:popDate WHERE payer_id=:payer_id");
 
             $stmt->execute(array(':pop' => $target_path, ':payer_id' => $userTable['login_id'], ':ord_status' => 2, ':popDate' => $popDate));
 
 //            Send Payee SMS
             $payerId = $activationOrder['payer_id'];
-            $approvalLink = BASE_URL.'user_activation';
+            $approvalLink = BASE_URL . 'user_activation';
             $payerEmail = $userTable['email'];
             $phone = $adminTurn['admin_mobile'];
 
             $front->requestApproval($payerId, $approvalLink, $payerEmail, $phone);
 
             //Insert Into user notification table
-            $action = $userInfo['first_name'] . ' ' . substr($userInfo['last_name'], 0, 1) . '. had uploaded POP for your GH order';
-            $actionUrl = 'user/approve?ordid=' . $ordID;
+            $action = $userTable['first_name'] . ' ' . substr($userTable['last_name'], 0, 1) . '. had uploaded POP for your GH order';
+            $actionUrl = 'user/approve?ordid=' . $activationOrder['ord_id'];
             $type = 'POP Submitted';
 
             $genInfo->userNotification($userLoginID, $action, $type, $actionUrl, $currentTime);
 
             //Insert Into admin notification table
-            $action = $userInfo['first_name'] . ' ' . $userInfo['last_name'] . '. has uploaded POP for PH order';
-            $actionUrl = 'approve?ordid=' . $ordID;
+            $action = $userTable['first_name'] . ' ' . $userTable['last_name'] . '. has uploaded POP for PH order';
+            $actionUrl = 'approve?ordid=' . $activationOrder['ord_id'];;
             $type = 'POP Submitted';
             $username = '';
 
@@ -87,7 +85,7 @@ if (isset($_FILES['pop']['name']) and $_FILES['pop']['name'] != "") {
 
 
 //grab user account info
-$bankInfo = $front->bankInfo($loginID);
+$bankInfo = $front->bankInfo($userLoginID);
 
 //Update Information
 if (isset($_POST['AcctName'])) {
@@ -110,8 +108,7 @@ if (isset($_POST['AcctName'])) {
 
     if (!isset($error)) {
         try {
-            $stmt = $genInfo->runQuery("SELECT * FROM bank_info 
-          WHERE account_number=:acctNumber AND bank=:bank");
+            $stmt = $genInfo->runQuery("SELECT * FROM bank_info WHERE account_number=:acctNumber AND bank=:bank");
             $stmt->execute(array(':acctNumber' => $acctNumber, ':bank' => $bank));
 
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -122,11 +119,11 @@ if (isset($_POST['AcctName'])) {
                 $stmt = $genInfo->runQuery("INSERT INTO bank_info (login_id, account_name, account_number, bank, date_added)
             
             VALUES(:loginID, :AcctName, :acctNumber, :bank, :currentTime)");
-                $stmt->execute(array(':loginID' => $loginID, ':AcctName' => $AcctName, ':acctNumber' => $acctNumber, ':bank' => $bank, ':currentTime' => $currentTime));
+                $stmt->execute(array(':loginID' => $userLoginID, ':AcctName' => $AcctName, ':acctNumber' => $acctNumber, ':bank' => $bank, ':currentTime' => $currentTime));
 
 
                 $genInfo->redirect(BASE_URL . 'user/bank-details?updated');
-                $genInfo->redirect(BASE_URL . 'user/payment?ordid=' . $ordID . '&pop=submitted');
+                $genInfo->redirect(BASE_URL . 'user/payment?ordid=' . $activationOrder['ord_id'] . '&pop=submitted');
 
             }
         } catch (PDOException $e) {
@@ -254,11 +251,14 @@ include(ROOT_PATH . "user/includes/navMenu.php");
                                             // Populate the order table.
                                             $orderAmount = 1000;
                                             $orderStatus = 0;
-                                            $periodTimer = 'Jul 24, 2020 15:37:25';
+
+                                            $tomorrow_date = strtotime("+12 hours");
+                                            $periodTimer = date("M d, Y H:i:s", $tomorrow_date);
+
                                             $orderDate = date("Y-m-d H:i:s");
 
                                             $orderTable = $genInfo->runQuery("INSERT INTO orders (admin_id, payer_id, ord_amount, ord_status, period_timer, ord_date) VALUES(:admin_id, :payer_id, :ord_amount, :ord_status, :period_timer, :ord_date)");
-                                            $orderTable->bindparam(":payer_id", $loginID);
+                                            $orderTable->bindparam(":payer_id", $userLoginID);
                                             $orderTable->bindparam("admin_id", $admin['id']);
                                             $orderTable->bindparam(":ord_amount", $orderAmount);
                                             $orderTable->bindparam(":ord_status", $orderStatus);
@@ -324,7 +324,7 @@ include(ROOT_PATH . "user/includes/navMenu.php");
                                     Amount: <b><?php echo $defaultCurrency['c_symbol'] ?>1000</p></b><br>
                                     Date Matched: <?php echo $activationOrder["ord_date"]; ?><br>
                                     Status:
-                                    <b><?php if ($order['ord_status'] == 1) { ?>
+                                    <b><?php if ($activationOrder['ord_status'] == 1) { ?>
                                             <span style="color: green">Paid</span>
                                         <?php } else { ?>
                                             <span style="color: red;">Unpaid</span>
@@ -348,18 +348,19 @@ include(ROOT_PATH . "user/includes/navMenu.php");
                                         <span style="font-size:20px; color:green;">Payment Confirmed!</span>
                                     <?php } ?>
                                     <br><br>
-                                    <span style="font-size:20px; color:red; margin-bottom: 10px; display: block;"> Activation fee is to be Paid to the Account to begin donation after payments upload proof of payment using the button below </span>
+                                    <span style="font-size:20px; color:red; margin-bottom: 10px; display: block;"> Activation fee is to be Paid to the Account to begin donation after payments upload prove of payment using the button below </span>
                                     <?php if ($activationOrder['ord_status'] == 0) { ?>
-                                    <label for="pop" class="btn btn-success btn-sm">Upload Proof of Payment </label>
-                                    <form role="form" method="post" action="" enctype="multipart/form-data"
-                                          style="float:left;"><br>
-                                        <input style="display:none" type="file" name="pop" id="pop"
-                                               onchange="this.form.submit();">
-                                    </form>
+                                        <label for="pop" class="btn btn-success btn-sm">Upload Prove of Payment </label>
+                                        <form role="form" method="post" action="" enctype="multipart/form-data"
+                                              style="float:left;"><br>
+                                            <input style="display:none" type="file" name="pop" id="pop"
+                                                   onchange="this.form.submit();">
+                                        </form>
                                     <?php } ?>
                                     <?php if ($activationOrder['pop'] != '') { ?>
-                                        <a style="margin:20px 10px 20px 0; display: block; width: 30%;" class="btn btn-default btn-sm" target="_blank"
-                                           href="<?php echo $order['pop']; ?>">View POP</a><br>
+                                        <a style="margin:20px 10px 20px 0; display: block; width: 30%;"
+                                           class="btn btn-default btn-sm" target="_blank"
+                                           href="<?php echo $activationOrder['pop']; ?>">View POP</a><br>
                                     <?php } ?>
                                 </div>
                             </div>
@@ -370,7 +371,7 @@ include(ROOT_PATH . "user/includes/navMenu.php");
             </div> <!-- end row -->
 
             <?php
-            $dbTimer = $order['period_timer'];
+            $dbTimer = $activationOrder['period_timer'];
             include(ROOT_PATH . "user/includes/paymentTimer.php");
             ?>
 
