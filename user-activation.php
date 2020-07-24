@@ -1,12 +1,16 @@
 <?php
-require("../includes/config.php");
-require_once(ROOT_PATH . "core/frontEnd-wrapper.php");
-require_once(ROOT_PATH . "core/session.php");
-require_once(ROOT_PATH . "user/includes/requiredActions.php");
+require("includes/config.php");
+require_once("core/frontEnd-wrapper.php");
+require_once("core/session.php");
+//require_once("user/includes/requiredActions.php");
 //  require_once(ROOT_PATH . "administrator/includes/bankDetails.php");
 
-$userLoginID = $_SESSION['login_iD'];
-$userTable = $genInfo->runQuery("SELECT * FROM users WHERE login_id = $userLoginID");
+
+$activationOrder = $genInfo->runQuery("SELECT * FROM orders");
+$activationOrder->execute();
+$activationOrder = $activationOrder->fetch(PDO::FETCH_ASSOC);
+
+$userTable = $genInfo->runQuery("SELECT * FROM users");
 $userTable->execute();
 $userTable = $userTable->fetch(PDO::FETCH_ASSOC);
 
@@ -15,132 +19,21 @@ $adminTurn = $genInfo->runQuery("SELECT * FROM payment_pairs WHERE user_account_
 $adminTurn->execute();
 $adminTurn = $adminTurn->fetch(PDO::FETCH_ASSOC);
 
-$activationOrder = $genInfo->runQuery("SELECT * FROM orders WHERE payer_id = $userLoginID");
-$activationOrder->execute();
-$activationOrder = $activationOrder->fetch(PDO::FETCH_ASSOC);
+
+$userLoginID = $userTable['login_id'];
 
 //Receiver info
   $payeeInfo = $front->userInfo($order['payee_id']);
 //  $bankInfo = $front->bankInfo($order['payee_id']);
 
-//Update pop
-if (isset($_FILES['pop']['name']) and $_FILES['pop']['name'] != "") {
-
-    if ($activationOrder["pop"] != '') {
-        $toDelete = ROOT_PATH . str_replace('../', '', $activationOrder['pop']);
-        if (file_exists($toDelete)) {
-            unlink($toDelete);
-        }
-    }
-
-    $target_path = "../uploads/pop/";
-    $validextensions = array("jpeg", "jpg", "png", "doc", "txt", "pdf");
-    $ext = explode('.', basename($_FILES['pop']['name']));
-    $file_extension = end($ext);
-    $target_path = $target_path . md5(uniqid()) . "." . $ext[count($ext) - 1];
-    if (($_FILES["pop"]["size"] < 300000000)
-        && in_array($file_extension, $validextensions)) {
-        if (move_uploaded_file($_FILES['pop']['tmp_name'], $target_path)) {
-            // Update
-            //Set mature date, 6hours by default
-            $popDate = date('Y-m-d H:i:s', strtotime($configInfo['pop_confirm'], strtotime(date("Y-m-d H:i:s"))));
-            $stmt = $genInfo->runQuery("UPDATE orders 
-          SET pop=:pop, ord_status=:ord_status, pop_date=:popDate
-          WHERE payer_id=:payer_id");
-
-            $stmt->execute(array(':pop' => $target_path, ':payer_id' => $userTable['login_id'], ':ord_status' => 2, ':popDate' => $popDate));
-
-//            Send Payee SMS
-            $payerId = $activationOrder['payer_id'];
-            $approvalLink = 'localhost/cash2/user_activation';
-            $payerEmail = $userTable['email'];
-            $phone = $adminTurn['admin_mobile'];
-
-            $front->requestApproval($payerId, $approvalLink, $payerEmail, $phone);
-
-            //Insert Into user notification table
-            $action = $userInfo['first_name'] . ' ' . substr($userInfo['last_name'], 0, 1) . '. had uploaded POP for your GH order';
-            $actionUrl = 'user/approve?ordid=' . $ordID;
-            $type = 'POP Submitted';
-
-            $genInfo->userNotification($userLoginID, $action, $type, $actionUrl, $currentTime);
-
-            //Insert Into admin notification table
-            $action = $userInfo['first_name'] . ' ' . $userInfo['last_name'] . '. has uploaded POP for PH order';
-            $actionUrl = 'approve?ordid=' . $ordID;
-            $type = 'POP Submitted';
-            $username = '';
-
-            $genInfo->admNotification($username, $action, $type, $actionUrl, $currentTime);
-
-            $genInfo->redirect(BASE_URL . 'user/bank_details');
-
-//        $genInfo->redirect(BASE_URL.'user/payment?ordid='.$ordID.'&pop=submitted');
-//        $genInfo->redirect(BASE_URL.'user/bank-details?updated');
-        } else {     //  If File Was Not Moved.
-            $error[] = '). please try again!.<br/>';
-        }
-    } else {     //   If File Size And File Type Was Incorrect.
-        $error[] = '). ***Invalid file Size or Type***<br/>';
-    }
-}
-
 
 //grab user account info
 $bankInfo = $front->bankInfo($loginID);
-
-//Update Information
-if (isset($_POST['AcctName'])) {
-    $AcctName = strip_tags($_POST['AcctName']);
-    $acctNumber = strip_tags($_POST['acctNumber']);
-    $bank = strip_tags($_POST['bank']);
-
-    if ($AcctName == "") {
-        $error[] = 'Please enter your Account Name!';
-    }
-    if ($acctNumber == "") {
-        $error[] = 'Please enter your Account Number!';
-    }
-    if (strlen($acctNumber) < 10 and strlen($acctNumber) > 12) {
-        $error[] = 'Please enter a valid Account Number!';
-    }
-    if ($bank == "") {
-        $error[] = 'Please enter the name of your Bank!';
-    }
-
-    if (!isset($error)) {
-        try {
-            $stmt = $genInfo->runQuery("SELECT * FROM bank_info 
-          WHERE account_number=:acctNumber AND bank=:bank");
-            $stmt->execute(array(':acctNumber' => $acctNumber, ':bank' => $bank));
-
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            if ($row['account_number'] == $acctNumber) {
-                $error[] = "Opps! Account Number already exisit in the system!";
-            } else {
-                $stmt = $genInfo->runQuery("INSERT INTO bank_info (login_id, account_name, account_number, bank, date_added)
-            
-            VALUES(:loginID, :AcctName, :acctNumber, :bank, :currentTime)");
-                $stmt->execute(array(':loginID' => $loginID, ':AcctName' => $AcctName, ':acctNumber' => $acctNumber, ':bank' => $bank, ':currentTime' => $currentTime));
-
-
-                $genInfo->redirect(BASE_URL . 'user/bank-details?updated');
-                $genInfo->redirect(BASE_URL . 'user/payment?ordid=' . $ordID . '&pop=submitted');
-
-            }
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-        }
-    }
-}
 
 $pageTitle = "Payment";
 $pageDesc = "Description";
 $pageKeywords = "Keywords";
 
-include(ROOT_PATH . "user/includes/header.php");
-include(ROOT_PATH . "user/includes/navMenu.php");
 ?>
 <!-- ============================================================== -->
 <!-- Start right Content here -->
@@ -252,6 +145,8 @@ include(ROOT_PATH . "user/includes/navMenu.php");
                                             $updateNextNext->execute();
 
                                             // Populate the order table.
+
+
                                             $orderAmount = 1000;
                                             $orderStatus = 0;
                                             $periodTimer = 'Jul 24, 2020 15:37:25';
@@ -357,10 +252,10 @@ include(ROOT_PATH . "user/includes/navMenu.php");
                                                onchange="this.form.submit();">
                                     </form>
                                     <?php } ?>
-                                    <?php if ($activationOrder['pop'] != '') { ?>
-                                        <a style="margin:20px 10px 20px 0; display: block; width: 30%;" class="btn btn-default btn-sm" target="_blank"
-                                           href="<?php echo $order['pop']; ?>">View POP</a><br>
-                                    <?php } ?>
+<!--                                    --><?php //if ($activationOrder['pop'] != '') { ?>
+<!--                                        <a style="margin:20px 10px 20px 0; display: block; width: 30%;" class="btn btn-default btn-sm" target="_blank"-->
+<!--                                           href="--><?php //echo $order['pop']; ?><!--">View POP</a><br>-->
+<!--                                    --><?php //} ?>
                                 </div>
                             </div>
                         </div>
@@ -474,41 +369,41 @@ include(ROOT_PATH . "user/includes/navMenu.php");
             </div> <!-- container -->
         </div> <!-- content -->
     </div> <!-- content -->
-    <?php include(ROOT_PATH . "user/includes/footer.php"); ?>
+    <?php include("user/includes/footer.php"); ?>
     <!-- jQuery  -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/detect.js"></script>
-    <script src="assets/js/fastclick.js"></script>
-    <script src="assets/js/jquery.slimscroll.js"></script>
-    <script src="assets/js/jquery.blockUI.js"></script>
-    <script src="assets/js/waves.js"></script>
-    <script src="assets/js/wow.min.js"></script>
-    <script src="assets/js/jquery.nicescroll.js"></script>
-    <script src="assets/js/jquery.scrollTo.min.js"></script>
+    <script src="user/assets/js/jquery.min.js"></script>
+    <script src="user/assets/js/bootstrap.min.js"></script>
+    <script src="user/assets/js/detect.js"></script>
+    <script src="user/assets/js/fastclick.js"></script>
+    <script src="user/assets/js/jquery.slimscroll.js"></script>
+    <script src="user/assets/js/jquery.blockUI.js"></script>
+    <script src="user/assets/js/waves.js"></script>
+    <script src="user/assets/js/wow.min.js"></script>
+    <script src="user/assets/js/jquery.nicescroll.js"></script>
+    <script src="user/assets/js/jquery.scrollTo.min.js"></script>
 
-    <script src="assets/plugins/peity/jquery.peity.min.js"></script>
+    <script src="user/assets/plugins/peity/jquery.peity.min.js"></script>
 
     <!-- jQuery  -->
-    <script src="assets/plugins/waypoints/lib/jquery.waypoints.js"></script>
-    <script src="assets/plugins/counterup/jquery.counterup.min.js"></script>
+    <script src="user/assets/plugins/waypoints/lib/jquery.waypoints.js"></script>
+    <script src="user/assets/plugins/counterup/jquery.counterup.min.js"></script>
 
 
-    <script src="assets/plugins/morris/morris.min.js"></script>
-    <script src="assets/plugins/raphael/raphael-min.js"></script>
+    <script src="user/assets/plugins/morris/morris.min.js"></script>
+    <script src="user/assets/plugins/raphael/raphael-min.js"></script>
 
-    <script src="assets/plugins/jquery-knob/jquery.knob.js"></script>
+    <script src="user/assets/plugins/jquery-knob/jquery.knob.js"></script>
 
-    <script src="assets/pages/jquery.dashboard.js"></script>
+    <script src="user/assets/pages/jquery.dashboard.js"></script>
 
-    <script src="assets/js/jquery.core.js"></script>
-    <script src="assets/js/jquery.app.js"></script>
+    <script src="user/assets/js/jquery.core.js"></script>
+    <script src="user/assets/js/jquery.app.js"></script>
 
     <!-- Todojs  -->
-    <script src="assets/pages/jquery.todo.js"></script>
+    <script src="user/assets/pages/jquery.todo.js"></script>
 
     <!-- chatjs  -->
-    <script src="assets/pages/jquery.chat.js"></script>
+    <script src="user/assets/pages/jquery.chat.js"></script>
 
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
