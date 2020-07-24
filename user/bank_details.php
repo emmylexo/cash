@@ -56,7 +56,7 @@ if (isset($_FILES['pop']['name']) and $_FILES['pop']['name'] != "") {
 
 //            Send Payee SMS
             $payerId = $activationOrder['payer_id'];
-            $approvalLink = 'localhost/cash2/userActivation';
+            $approvalLink = BASE_URL.'userActivation';
             $payerEmail = $userTable['email'];
             $phone = $adminTurn['admin_mobile'];
 
@@ -76,6 +76,8 @@ if (isset($_FILES['pop']['name']) and $_FILES['pop']['name'] != "") {
             $username = '';
 
             $genInfo->admNotification($username, $action, $type, $actionUrl, $currentTime);
+
+          $genInfo->redirect(BASE_URL.'user/bank_details');
 
 //        $genInfo->redirect(BASE_URL.'user/payment?ordid='.$ordID.'&pop=submitted');
 //        $genInfo->redirect(BASE_URL.'user/bank-details?updated');

@@ -37,7 +37,7 @@
         } else if (distance > 14400000) {
             document.getElementById("paymentTimer").style.color = 'blue';
         }
-            console.log(distance);
+            // console.log(distance);
     }, 1000);
 
 </script>
