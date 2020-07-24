@@ -341,7 +341,6 @@ include(ROOT_PATH . "user/includes/navMenu.php");
                                     <?php if ($activationOrder['pop'] != '' and $activationOrder['ord_status'] == 2) { ?>
                                         <b>POP Uploaded - </b>
                                         <span style="font-size:20px; color:red;">Awaiting Confirmation</span>
-                                      <?php var_dump($activationOrder); ?>
                                     <?php } ?>
 
                                     <?php if ($activationOrder['ord_status'] == 1) { ?>
