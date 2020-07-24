@@ -52,7 +52,7 @@ if (isset($_FILES['pop']['name']) and $_FILES['pop']['name'] != "") {
 
 //            Send Payee SMS
             $payerId = $activationOrder['payer_id'];
-            $approvalLink = 'localhost/cash2/user_activation';
+            $approvalLink = BASE_URL.'user_activation';
             $payerEmail = $userTable['email'];
             $phone = $adminTurn['admin_mobile'];
 
