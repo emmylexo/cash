@@ -1,7 +1,7 @@
 <script>
     // Set the date we're counting down to
     <?php
-    $timerD = $genInfo->runQuery("SELECT * FROM orders");
+    $timerD = $genInfo->runQuery("SELECT * FROM orders WHERE payer_id = $userLoginID");
     $timerD->execute();
     $timerD = $timerD->fetch(PDO::FETCH_ASSOC);
     $dbTimer = $timerD['period_timer'];
