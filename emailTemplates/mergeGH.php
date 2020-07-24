@@ -85,7 +85,7 @@ Congratulations!
 </td>
 </tr><tr style="font-family: \'Helvetica Neue\',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"><td class="content-block" style="font-family: \'Helvetica Neue\',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
 
-	You\'ve received a merge on your GH order in the '.$siteInfo["site_name"].' community. Please use the login button below to login to the system and followup with the payer. And of course you are required to Approve/Report order once POP is uploaded by the payer.
+	You\'ve received a merge on your Receive order in the '.$siteInfo["site_name"].' community. Please use the login button below to login to the system and followup with the payer. And of course you are required to Approve/Report order once POP is uploaded by the payer.
 </td>
 </tr><tr style="font-family: \'Helvetica Neue\',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;"><td class="content-block" style="font-family: \'Helvetica Neue\',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; vertical-align: top; margin: 0; padding: 0 0 20px;" valign="top">
 	<a href="'.$emailSiteURL.'/user" class="btn-primary" style="font-family: \'Helvetica Neue\',Helvetica,Arial,sans-serif; box-sizing: border-box; font-size: 14px; color: #FFF; text-decoration: none; line-height: 2em; font-weight: bold; text-align: center; cursor: pointer; display: inline-block; border-radius: 5px; text-transform: capitalize; background-color: #5fbeaa; margin: 0; border-color: #5fbeaa; border-style: solid; border-width: 10px 20px;">

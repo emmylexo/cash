@@ -289,7 +289,7 @@
 			return $matches['sm'];
 		}
 
-		//user PH orders
+		//user Donate orders
 		public function myPHorders($phID){
 			try	{
 				$stmt = $this->connect->prepare("SELECT * FROM orders
@@ -322,7 +322,7 @@
 			return $matches;
 		}
 
-		//user PH order single
+		//user Donate order single
 		public function orderSingle($ordID){
 			try	{
 				$stmt = $this->connect->prepare("SELECT * FROM orders
@@ -337,7 +337,7 @@
 			return $matches;
 		}
 
-		//user GH orders
+		//user Receive orders
 		public function myGHorders($ghID){
 			try	{
 				$stmt = $this->connect->prepare("SELECT * FROM orders
@@ -352,7 +352,7 @@
 			return $matches;
 		}
 
-		//user PH orders single
+		//user Donate orders single
 		public function myPHsingle($phID){
 			try	{
 				$stmt = $this->connect->prepare("SELECT * FROM provide_help
@@ -367,7 +367,7 @@
 			return $matches;
 		}
 
-		//user GH Request
+		//user Receive Request
 		public function myGHs($loginID){
 			try	{
 				$stmt = $this->connect->prepare("SELECT * FROM get_help
@@ -383,7 +383,7 @@
 			return $matches;
 		}
 
-		//user GH Request
+		//user Receive Request
 		public function myGHsingle($ghID){
 			try	{
 				$stmt = $this->connect->prepare("SELECT * FROM get_help

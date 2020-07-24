@@ -57,14 +57,14 @@ if (isset($_FILES['pop']['name']) and $_FILES['pop']['name'] != "") {
             $front->requestApproval($payerId, $approvalLink, $payerEmail, $phone);
 
             //Insert Into user notification table
-            $action = $userTable['first_name'] . ' ' . substr($userTable['last_name'], 0, 1) . '. had uploaded POP for your GH order';
+            $action = $userTable['first_name'] . ' ' . substr($userTable['last_name'], 0, 1) . '. had uploaded POP for your Receive order';
             $actionUrl = 'user/approve?ordid=' . $activationOrder['ord_id'];
             $type = 'POP Submitted';
 
             $genInfo->userNotification($userLoginID, $action, $type, $actionUrl, $currentTime);
 
             //Insert Into admin notification table
-            $action = $userTable['first_name'] . ' ' . $userTable['last_name'] . '. has uploaded POP for PH order';
+            $action = $userTable['first_name'] . ' ' . $userTable['last_name'] . '. has uploaded POP for Donate order';
             $actionUrl = 'approve?ordid=' . $activationOrder['ord_id'];;
             $type = 'POP Submitted';
             $username = '';

@@ -529,7 +529,7 @@
 			return $matches;
 		}
 
-		//user PH orders
+		//user Donate orders
 		public function myPHorders($phID){
 			try	{
 				$stmt = $this->connect->prepare("SELECT * FROM orders
@@ -544,7 +544,7 @@
 			return $matches;
 		}
 
-		//user PH order single
+		//user Donate order single
 		public function orderSingle($ordID){
 			try	{
 				$stmt = $this->connect->prepare("SELECT * FROM orders
@@ -559,7 +559,7 @@
 			return $matches;
 		}
 
-		//user GH Request
+		//user Receive Request
 		public function myGHs(){
 			try	{
 				$stmt = $this->connect->prepare("SELECT * FROM get_help
@@ -574,7 +574,7 @@
 			return $matches;
 		}
 
-		//user GH Request
+		//user Receive Request
 		public function myGHsingle($ghID){
 			try	{
 				$stmt = $this->connect->prepare("SELECT * FROM get_help
@@ -590,7 +590,7 @@
 			return $matches;
 		}
 
-		//user GH orders
+		//user Receive orders
 		public function myGHorders($ghID){
 			try	{
 				$stmt = $this->connect->prepare("SELECT * FROM orders
@@ -605,7 +605,7 @@
 			return $matches;
 		}
 
-		//user PH orders single
+		//user Donate orders single
 		public function myPHsingle($phID){
 			try	{
 				$stmt = $this->connect->prepare("SELECT * FROM provide_help
@@ -666,7 +666,7 @@
 			return $matches['sm'];
 		}
 
-		//user GH Request
+		//user Receive Request
 		public function customerGHs($loginID){
 			try	{
 				$stmt = $this->connect->prepare("SELECT * FROM get_help
@@ -732,7 +732,7 @@
 			return $matches['Total'];
 		}
 
-		//Count number of user PH orders
+		//Count number of user Donate orders
 		public function countPHOrder($loginID){
 			try	{
 				$stmt = $this->connect->prepare("SELECT COUNT(*) AS cnt FROM orders 
@@ -745,7 +745,7 @@
 			$matches = $stmt->fetch(PDO::FETCH_ASSOC);			
 			return $matches['cnt'];
 		}
-		//Count user Unpaid PH order
+		//Count user Unpaid Donate order
 		public function countUnpaidPH($loginID){
 			try	{
 				$stmt = $this->connect->prepare("SELECT COUNT(*) AS cnt FROM orders 

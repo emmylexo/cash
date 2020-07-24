@@ -34,7 +34,7 @@
     //Check for down payment
     $downPaymt = $fstTimer['amount'] * $configInfo['down_pay'] / 100;
 
-    //New amount to immediately match to any available GHs in the GH row.
+    //New amount to immediately match to any available GHs in the Receive row.
     $amount = $downPaymt;
 
     //This function grab list of Uncomplete GHs
@@ -42,10 +42,10 @@
 
     //Loop and compare each of the GHs in the array
     foreach ($findReceivings as $g) {
-      //Sum all match received by this GH row
+      //Sum all match received by this Receive row
       $matchSum = $genInfo->recdOrder($g['gh_id']);
 
-      //deduct received amount from the GH amount
+      //deduct received amount from the Receive amount
       $bal = $g['g_amount'] - $matchSum;
       
       //Checks if match is found
@@ -98,10 +98,10 @@
 	    //This function grab next uncompleted reserved ph
 		$findSending = $genInfo->findSending($currentTime);
 	    
-	    //Sum all match received by this PH row
+	    //Sum all match received by this Donate row
 	    $mSum = $genInfo->sumPH($findSending['ph_id']);
 		
-		//deduct received amount from the GH amount
+		//deduct received amount from the Receive amount
 		$phBal = $findSending['amount'] - $mSum;
 
 		//Check if there is a result from ph
@@ -110,10 +110,10 @@
 			//Loop and compare each of the GHs in the array
 			foreach ($findReceivings as $g) {
 
-			    //Sum match received by this GH row
+			    //Sum match received by this Receive row
 			    $matchSum = $genInfo->sumGH($g['gh_id']);
 	
-			    //deduct received amount from the GH amount
+			    //deduct received amount from the Receive amount
 			    $ghBal = $g['g_amount'] - $matchSum;
 
 			    //Checks if match is found
@@ -204,7 +204,7 @@
 		//Check if record is found, if yes then check payee ID
 		//Then block user and email
 		if(isset($checkUserrr['payee_id']) AND $checkUserrr['payee_id'] != ''){            
-            //block user who have not PH after 7 days of last GH
+            //block user who have not Donate after 7 days of last GH
              $stmt = $genInfo->runQuery("UPDATE users 
                 SET status='Blocked' 
                 WHERE login_id=:payeeID");
@@ -219,7 +219,7 @@
 		echo $e->getMessage();
 	}
 
-//-This section Block users who have not PH after 7 days of signup --//
+//-This section Block users who have not Donate after 7 days of signup --//
 
 	try	{
 		$stmt = $genInfo->runQuery("SELECT *
@@ -234,7 +234,7 @@
 		//Check if record is found, if yes then check payee ID
 		//Then block user and email
 		if(isset($checkUserrr['login_id']) AND $checkUserrr['login_id'] != ''){            
-            //block user who have not PH after 7 days
+            //block user who have not Donate after 7 days
              $stmt = $genInfo->runQuery("UPDATE users 
                 SET status='Blocked' 
                 WHERE login_id=:loginID");
@@ -280,7 +280,7 @@
 	          WHERE ord_id=:ordID");     
 	        $stmt->execute(array(':currentTime'=>$currentTime, ':ordID'=>$upd_checkPOP['ord_id']));  
 
-	        //Update GH table on successfuly payment confirmation
+	        //Update Receive table on successfuly payment confirmation
 	        $withdrawnn = $upd_Ghh['g_withdrawn'] + $upd_checkPOP['ord_amount'];
 
 	        if($withdrawnn == $upd_Ghh['g_amount']){        
@@ -298,7 +298,7 @@
 	        $stmt->execute(array(':amount'=>$upd_checkPOP['ord_amount'], ':ghID'=>$upd_checkPOP['gh_id'], ':statusn'=>$statusn));
 
 
-	        //Update PH table on successfuly payment confirmation
+	        //Update Donate table on successfuly payment confirmation
 	        $paidn = $phInfon['paid'] + $upd_checkPOP['ord_amount'];
 	        if($paidn == $phInfon['amount']){        
 	          $status = 'Full Payment';

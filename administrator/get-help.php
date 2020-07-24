@@ -20,10 +20,10 @@
     
     //Php Validation
     if($userID == "") {
-      $error[] = "Please valid user to add to GH list";  
+      $error[] = "Please valid user to add to Receive list";
     } 
     else if($amount == "") {
-      $error[] = "Please enter GH Amount!";
+      $error[] = "Please enter Receive Amount!";
     }else{
       //
       try {
@@ -58,11 +58,11 @@
     
     //Php Validation
     if($ph["matured_date"] > $currentTime) {
-      $error[] = "PH Still maturing...!"; 
+      $error[] = "Donate Still maturing...!";
     }
 
     if($ph["gh_status"] == 1) {
-      $error[] = "You can not make GH request twice!"; 
+      $error[] = "You can not make Receive request twice!";
     }
     
     if(!isset($error)){

@@ -52,7 +52,7 @@
            </div>
   <?php } }elseif(isset($_GET['submitted'])){?>
    <div class="alert alert-success">
-      <i class="fa fa-check-square"></i> &nbsp; PH request submitted!
+      <i class="fa fa-check-square"></i> &nbsp; Donate request submitted!
    </div>
   <?php }elseif(isset($_GET['warning']) AND $_GET['un'] != ''){?>
       <div class="alert alert-danger">

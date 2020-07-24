@@ -19,7 +19,7 @@
 			for($i = 0; $i < $cntPayer; $i++) {
 				$phID = $_POST['payers'][$i];
 				try	{
-					//Grab GH Info
+					//Grab Receive Info
 					$ghInfo = $adm->myGHsingle($ghID);
 
 					//Check remaining amount of payee
@@ -54,7 +54,7 @@
 					}
 
 					if($remning != 0 AND $remning < $configInfo['min_ph']){
-						$error[] = "Oops! Outstanding amount will fall below the minimum PH Amount!";	
+						$error[] = "Oops! Outstanding amount will fall below the minimum Donate Amount!";
 					}elseif($phInfo["login_id"] == $ghInfo["login_id"])	{
 						$error[] = "Opps: It seems one of more of your selected Payers is Merging to itself as Receiver!";	
 					}else{

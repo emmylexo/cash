@@ -1,418 +1,134 @@
 <?php
-require("includes/config.php");
-require_once("core/frontEnd-wrapper.php");
-require_once("core/session.php");
-//require_once("user/includes/requiredActions.php");
-//  require_once(ROOT_PATH . "administrator/includes/bankDetails.php");
+    require("includes/config.php");
+    require_once(ROOT_PATH . "core/frontEnd-wrapper.php");
+    require_once(ROOT_PATH . "core/session.php");
+?>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-$activationOrder = $genInfo->runQuery("SELECT * FROM orders");
-$activationOrder->execute();
-$activationOrder = $activationOrder->fetch(PDO::FETCH_ASSOC);
+    <title>Activate User</title>
 
-$userTable = $genInfo->runQuery("SELECT * FROM users");
-$userTable->execute();
-$userTable = $userTable->fetch(PDO::FETCH_ASSOC);
+    <link rel="shortcut icon" href="images/6bbb860bc90326d162752565df3199fc.png" type="image/x-icon">
 
-$user_account_number = $bankInfo['account_number'];
-$adminTurn = $genInfo->runQuery("SELECT * FROM payment_pairs WHERE user_account_number = $user_account_number");
-$adminTurn->execute();
-$adminTurn = $adminTurn->fetch(PDO::FETCH_ASSOC);
+    <style>
+        img {
+            width: 100%;
+        }
 
+        .list-group-item {
+            border: none;
+        }
 
-$userLoginID = $userTable['login_id'];
+        .card-title {
+            font-size: 22px;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body class="mt-5">
 
-//Receiver info
-  $payeeInfo = $front->userInfo($order['payee_id']);
-//  $bankInfo = $front->bankInfo($order['payee_id']);
+<?php if (!isset($_GET['user'])) { $genInfo->redirect(BASE_URL . 'user/'); exit(); }?>
 
+<?php
 
-//grab user account info
-$bankInfo = $front->bankInfo($loginID);
+    $userLoginID = $_GET['user'];
+    $userTable = $genInfo->runQuery("SELECT * FROM users WHERE login_id = $userLoginID");
+    $userTable->execute();
+    $userTable = $userTable->fetch(PDO::FETCH_ASSOC);
 
-$pageTitle = "Payment";
-$pageDesc = "Description";
-$pageKeywords = "Keywords";
+    $bankInfo = $genInfo->runQuery("SELECT account_number FROM bank_info WHERE login_id = $userLoginID");
+    $bankInfo->execute();
+    $bankInfo = $bankInfo->fetch(PDO::FETCH_ASSOC);
+
+    $activateOrder = $genInfo->runQuery("SELECT * FROM orders WHERE payer_id = $userLoginID");
+    $activateOrder->execute();
+    $activateOrder = $activateOrder->fetch(PDO::FETCH_ASSOC);
+
+    if ($_GET['user'] !== $activateOrder['payer_id']) {
+        $genInfo->redirect(BASE_URL . 'user/');
+        exit();
+    }
+
+    $user_account_number = $bankInfo['account_number'];
+    $paymentPairs = $genInfo->runQuery("SELECT * FROM payment_pairs WHERE user_account_number = $user_account_number");
+    $paymentPairs->execute();
+    $paymentPairs = $paymentPairs->fetch(PDO::FETCH_ASSOC);
+
+    if (isset($_GET['approve'])) {
+        $stmt = $genInfo->runQuery("UPDATE orders SET ord_status = '1' WHERE payer_id = $userLoginID");
+        $stmt->execute();
+        $updateUser = $genInfo->runQuery("UPDATE users SET status = 'Active' WHERE login_id = $userLoginID");
+        $updateUser->execute();
+        $genInfo->redirect(BASE_URL . 'user/');
+    }
 
 ?>
-<!-- ============================================================== -->
-<!-- Start right Content here -->
-<!-- ============================================================== -->
-<div class="content-page">
-    <!-- Start content -->
-    <div class="content">
-        <div class="container">
-            <!-- Page-Title -->
-            <div class="row">
-                <div class="col-sm-12">
-                    <ol class="breadcrumb">
-                        <li><a href="<?php echo BASE_URL; ?>user">Dashboard</a></li>
-                        <li><a href="<?php echo BASE_URL; ?>user/provide-help">Provide Help</a></li>
-                        <li class="active">Payment</li>
-                    </ol>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-uppercase font-weight-bold">Proof Of Payment [POP]</h5>
+                </div>
+                <div class="pop-image">
+                    <img src="<?php echo str_replace('../', '', $activateOrder['pop']); ?>" alt="POP">
                 </div>
             </div>
-
-            <?php
-            if (isset($error)) {
-                foreach ($error as $error) {
-                    ?>
-                    <div class="alert alert-danger">
-                        <i class="fa fa-exclamation-triangle"></i> &nbsp; <?php echo $error; ?>
-                    </div>
-                <?php }
-            } elseif (isset($_GET['pop'])) {
-                ?>
-                <div class="alert alert-success">
-                    <i class="fa fa-check-square"></i> &nbsp; POP Submitted!
+        </div>
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-uppercase font-weight-bold">Payee Details</h5>
                 </div>
-            <?php } ?>
-
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="portlet"><!-- /primary heading -->
-                        <div class="portlet-heading">
-                            <h1 class="portlet-title text-dark text-uppercase">
-                                <span style="color: red;"> Pay Activation Fee to the Account Details Below </span>
-                            </h1>
-                            <div class="portlet-widgets">
-                                <a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
-                                <span class="divider"></span>
-                                <a data-toggle="collapse" data-parent="#staff" href="#staff"><i
-                                            class="ion-minus-round"></i></a>
-                                <span class="divider"></span>
-                                <a href="#" data-toggle="remove"><i class="ion-close-round"></i></a>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div id="staff" class="panel-collapse collapse in">
-                            <div class="portlet-body" style="height: 280px;">
-                                <div class="table-responsive">
-                                    <table class="table table-actions-bar m-b-0">
-                                        <tbody>
-                                        <tr>
-                                            <td>
-                                                <?php if ($payeeInfo['photo'] != '') { ?>
-                                                    <img style="border-radius:50%;"
-                                                         src="<?php echo $payeeInfo['photo']; ?>"
-                                                         alt="profile Photo" class="thumb-lg pull-left m-r-10">
-                                                <?php } else { ?>
-                                                    <i style="font-size:80px;" class="ti-user"></i>
-                                                <?php } ?>
-                                            </td>
-                                        </tr>
-
-                                        <?php
-
-                                        //                  $datetime = new DateTime();
-                                        //                  $timerT = $datetime->format('M d, Y  H:i:s');
-                                        //
-                                        //                  echo $timerT;
-                                        //
-                                        //                  exit();
-
-                                        if (isset($_SESSION['user-logged-in'])) {
-                                            try {
-                                                $stmt = $genInfo->runQuery("SELECT * FROM admin_turns WHERE next = 1");
-                                                $stmt->execute();
-                                                $admin = $stmt->fetch(PDO::FETCH_ASSOC);
-                                            } catch (PDOException $e) {
-                                                echo $e->getMessage();
-                                            }
-
-                                            $stmt2 = $genInfo->runQuery("INSERT INTO payment_pairs (admin_name, admin_account_number, admin_bank_name, admin_mobile, user_name, user_account_number, user_bank_name) 
-				      		VALUES(:admin_name, :admin_account_number, :admin_bank_name, :admin_mobile, :user_name, :user_account_number, :user_bank_name)");
-
-                                            $stmt2->bindparam(":admin_name", $admin['account_name']);
-                                            $stmt2->bindparam(":admin_account_number", $admin['account_number']);
-                                            $stmt2->bindparam(":admin_bank_name", $admin['bank_name']);
-                                            $stmt2->bindparam(":admin_mobile", $admin['phone_number']);
-                                            $stmt2->bindparam(":user_name", $bankInfo['account_name']);
-                                            $stmt2->bindparam(":user_account_number", $bankInfo['account_number']);
-                                            $stmt2->bindparam(":user_bank_name", $bankInfo['bank']);
-                                            $stmt2->execute();
-
-                                            $admin_name = $admin['account_number'];
-                                            $updateCurrentNext = $genInfo->runQuery("UPDATE admin_turns SET next='0' WHERE account_number=$admin_name");
-                                            $updateCurrentNext->execute();
-
-                                            $i = $admin['id'];
-
-                                            if ($i >= 11) {
-                                                $i = 0;
-                                            }
-                                            $updateNextNext = $genInfo->runQuery("UPDATE admin_turns SET next = '1' WHERE id > $i ORDER BY id ASC LIMIT 1");
-                                            $updateNextNext->execute();
-
-                                            // Populate the order table.
-
-
-                                            $orderAmount = 1000;
-                                            $orderStatus = 0;
-                                            $periodTimer = 'Jul 24, 2020 15:37:25';
-                                            $orderDate = date("Y-m-d H:i:s");
-
-                                            $orderTable = $genInfo->runQuery("INSERT INTO orders (admin_id, payer_id, ord_amount, ord_status, period_timer, ord_date) VALUES(:admin_id, :payer_id, :ord_amount, :ord_status, :period_timer, :ord_date)");
-                                            $orderTable->bindparam(":payer_id", $loginID);
-                                            $orderTable->bindparam("admin_id", $admin['id']);
-                                            $orderTable->bindparam(":ord_amount", $orderAmount);
-                                            $orderTable->bindparam(":ord_status", $orderStatus);
-                                            $orderTable->bindparam(":period_timer", $periodTimer);
-                                            $orderTable->bindparam(":ord_date", $orderDate);
-                                            $orderTable->execute();
-
-                                            unset($_SESSION['user-logged-in']);
-                                        } else {
-
-                                            $user_account_number = $bankInfo['account_number'];
-                                            $stmt = $genInfo->runQuery("SELECT * FROM payment_pairs WHERE user_account_number = $user_account_number");
-                                            $stmt->execute();
-                                            $paymentPair = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                                            $admin['account_name'] = $paymentPair['admin_name'];
-                                            $admin['account_number'] = $paymentPair['admin_account_number'];
-                                            $admin['bank_name'] = $paymentPair['admin_bank_name'];
-                                            $admin['phone_number'] = $paymentPair['admin_mobile'];
-                                        }
-                                        ?>
-                                        <tr>
-                                            <td>Account Name: <?php echo $admin['account_name']; ?></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Account Number: <?php echo $admin['account_number']; ?></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Name of Bank: <?php echo $admin['bank_name']; ?></td>
-                                        <tr>
-                                            <td>Tel: <?php echo $admin['phone_number']; ?></td>
-                                        </tr>
-                                        <?php
-                                        ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> <!-- end col -->
-
-
-                <div class="col-lg-8">
-                    <div class="portlet"><!-- /primary heading -->
-                        <div class="portlet-heading">
-                            <h3 class="portlet-title text-dark text-uppercase">
-                                Payment OF Activation Fee Payment Instruction
-                            </h3>
-                            <div class="portlet-widgets">
-                                <a href="javascript:;" data-toggle="reload"><i class="ion-refresh"></i></a>
-                                <span class="divider"></span>
-                                <a data-toggle="collapse" data-parent="#adminLogin" href="#adminLogin"><i
-                                            class="ion-minus-round"></i></a>
-                                <span class="divider"></span>
-                                <a href="#" data-toggle="remove"><i class="ion-close-round"></i></a>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div id="adminLogin" class="panel-collapse collapse in">
-                            <div class="portlet-body" style="height: 280px;">
-                                <div class="col-lg-12">
-                                    Amount: <b><?php echo $defaultCurrency['c_symbol'] ?>1000</p></b><br>
-                                    Date Matched: <?php echo $activationOrder["ord_date"]; ?><br>
-                                    Status:
-                                    <b><?php if ($order['ord_status'] == 1) { ?>
-                                            <span style="color: green">Paid</span>
-                                        <?php } else { ?>
-                                            <span style="color: red;">Unpaid</span>
-                                        <?php } ?>
-                                    </b>
-                                </div>
-                                <div class="col-lg-12">
-                                    <br>
-                                    <?php if ($activationOrder['pop'] == '') { ?>
-                                        <b>Remaining Time:</b>
-                                        <span id="paymentTimer" style="font-size:20px; color:red;"></span>
-                                    <?php } ?>
-
-                                    <?php if ($activationOrder['pop'] != '' and $activationOrder['ord_status'] == 2) { ?>
-                                        <b>POP Uploaded - </b>
-                                        <span style="font-size:20px; color:red;">Awaiting Confirmation</span>
-                                    <?php } ?>
-
-                                    <?php if ($activationOrder['ord_status'] == 1) { ?>
-                                        <b>POP Uploaded - </b>
-                                        <span style="font-size:20px; color:green;">Payment Confirmed!</span>
-                                    <?php } ?>
-                                    <br><br>
-                                    <span style="font-size:20px; color:red; margin-bottom: 10px; display: block;"> Activation fee is to be Paid to the Account to begin donation after payments upload proof of payment using the button below </span>
-                                    <?php if ($activationOrder['ord_status'] == 0) { ?>
-                                    <label for="pop" class="btn btn-success btn-sm">Upload Proof of Payment </label>
-                                    <form role="form" method="post" action="" enctype="multipart/form-data"
-                                          style="float:left;"><br>
-                                        <input style="display:none" type="file" name="pop" id="pop"
-                                               onchange="this.form.submit();">
-                                    </form>
-                                    <?php } ?>
-<!--                                    --><?php //if ($activationOrder['pop'] != '') { ?>
-<!--                                        <a style="margin:20px 10px 20px 0; display: block; width: 30%;" class="btn btn-default btn-sm" target="_blank"-->
-<!--                                           href="--><?php //echo $order['pop']; ?><!--">View POP</a><br>-->
-<!--                                    --><?php //} ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> <!-- end col -->
-
-            </div> <!-- end row -->
-
-            <?php
-            $dbTimer = $order['period_timer'];
-            include(ROOT_PATH . "user/includes/paymentTimer.php");
-            ?>
-
-        </div> <!-- container -->
-        <div class="content">
-
-            <div class="wraper container-fluid">
-                <?php
-                if (isset($error)) {
-                    foreach ($error as $error) {
-                        ?>
-                        <div class="alert alert-danger">
-                            <i class="fa fa-exclamation-triangle"></i> &nbsp; <?php echo $error; ?>
-                        </div>
-                    <?php }
-                } elseif (isset($_GET['updated'])) {
-                    ?>
-                    <div class="alert alert-success">
-                        <i class="fa fa-check-square"></i> &nbsp; Profile is updated successfully!
-                    </div>
-                <?php } ?>
-
-                <div class="row">
-
-                    <div class="col-md-6">
-
-                        <form action="" method="post">
-                            <div class="card-box m-t-20">
-                                <h4 class="m-t-0 header-title"><b>Bank Information</b></h4>
-                                <p>Fill in your Your bank information Carefully (Account to be Used in recieving
-                                    Donations) </p>
-                                <?php if (isset($bankInfo['bank']) and $bankInfo['bank'] != '') { ?>
-                                    <div class="p-20">
-                                        <div class="about-info-p">
-                                            <strong>Account Name</strong>
-                                            <br>
-                                            <div class="form-group">
-                                                <input class="form-control" name="AcctName" type="text" readonly
-                                                       value="<?php echo $bankInfo['account_name']; ?>">
-                                            </div>
-                                        </div>
-                                        <div class="about-info-p">
-                                            <strong>Account Number</strong>
-                                            <br>
-                                            <div class="form-group">
-                                                <input class="form-control" name="acctNumber" type="text" readonly
-                                                       value="<?php echo $bankInfo['account_number']; ?>">
-                                            </div>
-                                        </div>
-
-                                        <div class="about-info-p">
-                                            <strong>Name of Bank</strong>
-                                            <br>
-                                            <div class="form-group">
-                                                <input class="form-control" name="bank" type="text" readonly
-                                                       value="<?php echo $bankInfo['bank']; ?>">
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php } else { ?>
-                                    <div class="p-20">
-                                        <div class="about-info-p">
-                                            <strong>Account Name</strong>
-                                            <br>
-                                            <div class="form-group">
-                                                <input class="form-control" name="AcctName" type="text" required
-                                                       minlength="7">
-                                            </div>
-                                        </div>
-                                        <div class="about-info-p">
-                                            <strong>Account Number</strong>
-                                            <br>
-                                            <div class="form-group">
-                                                <input class="form-control" name="acctNumber" type="text" required
-                                                       minlength="10">
-                                            </div>
-                                        </div>
-
-                                        <div class="about-info-p">
-                                            <strong>Name of Bank</strong>
-                                            <br>
-                                            <div class="form-group">
-                                                <input class="form-control" name="bank" type="text" required>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-success btn-sm">
-                                                Submit
-                                            </button>
-                                        </div>
-                                    </div>
-                                <?php } ?>
-                            </div>
-
-
-                        </form>
-                    </div>
-
-
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <strong>Account Name: </strong> <?php echo $paymentPairs['admin_name']; ?>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Account Number: </strong> <?php echo $paymentPairs['admin_account_number']; ?>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Name of Bank: </strong> <?php echo $paymentPairs['admin_bank_name']; ?>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Tel: </strong> <?php echo $paymentPairs['admin_mobile']; ?>
+                    </li>
+                </ul>
+            </div>
+            <br>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-uppercase font-weight-bold">Payer Details</h5>
                 </div>
-            </div> <!-- container -->
-        </div> <!-- content -->
-    </div> <!-- content -->
-    <?php include("user/includes/footer.php"); ?>
-    <!-- jQuery  -->
-    <script src="user/assets/js/jquery.min.js"></script>
-    <script src="user/assets/js/bootstrap.min.js"></script>
-    <script src="user/assets/js/detect.js"></script>
-    <script src="user/assets/js/fastclick.js"></script>
-    <script src="user/assets/js/jquery.slimscroll.js"></script>
-    <script src="user/assets/js/jquery.blockUI.js"></script>
-    <script src="user/assets/js/waves.js"></script>
-    <script src="user/assets/js/wow.min.js"></script>
-    <script src="user/assets/js/jquery.nicescroll.js"></script>
-    <script src="user/assets/js/jquery.scrollTo.min.js"></script>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <strong>Account Name: </strong> <?php echo $paymentPairs['user_name']; ?>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Account Number: </strong> <?php echo $paymentPairs['user_account_number']; ?>
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Name of Bank: </strong> <?php echo $paymentPairs['user_bank_name']; ?>
+                    </li>
+                </ul>
+            </div>
+            <br>
+            <div class="btn-group d-flex">
+                <a href="<?php echo BASE_URL . 'user-activation?user=' . $userLoginID . '&approve=true'; ?>" class="btn btn-primary">Approve User</a>
+                <a href="<?php echo BASE_URL . 'user/'; ?>" class="btn btn-primary ml-2">Approve User later</a>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <script src="user/assets/plugins/peity/jquery.peity.min.js"></script>
-
-    <!-- jQuery  -->
-    <script src="user/assets/plugins/waypoints/lib/jquery.waypoints.js"></script>
-    <script src="user/assets/plugins/counterup/jquery.counterup.min.js"></script>
-
-
-    <script src="user/assets/plugins/morris/morris.min.js"></script>
-    <script src="user/assets/plugins/raphael/raphael-min.js"></script>
-
-    <script src="user/assets/plugins/jquery-knob/jquery.knob.js"></script>
-
-    <script src="user/assets/pages/jquery.dashboard.js"></script>
-
-    <script src="user/assets/js/jquery.core.js"></script>
-    <script src="user/assets/js/jquery.app.js"></script>
-
-    <!-- Todojs  -->
-    <script src="user/assets/pages/jquery.todo.js"></script>
-
-    <!-- chatjs  -->
-    <script src="user/assets/pages/jquery.chat.js"></script>
-
-    <script type="text/javascript">
-        jQuery(document).ready(function ($) {
-            $('.counter').counterUp({
-                delay: 100,
-                time: 1200
-            });
-
-            $(".knob").knob();
-
-        });
-    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+</html>

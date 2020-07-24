@@ -54,7 +54,7 @@
         $genInfo->userNotification($payeeInfo['login_id'], $action, $type, $actionUrl, $currentTime);
 
         //Insert Into admin notification table
-        $action = $userInfo['first_name'].' '.$userInfo['last_name'].'. has uploaded POP for PH order';
+        $action = $userInfo['first_name'].' '.$userInfo['last_name'].'. has uploaded POP for Donate order';
         $actionUrl = 'approve?ordid='.$ordID;
         $type = 'POP Submitted';
         $username = '';

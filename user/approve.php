@@ -34,7 +34,7 @@
           WHERE ord_id=:ordID");     
         $stmt->execute(array(':currentTime'=>$currentTime, ':ordID'=>$ordID));  
 
-        //Update GH table on successfuly payment confirmation
+        //Update Receive table on successfuly payment confirmation
         $withdrawn = $ghInfo['g_withdrawn'] + $order['ord_amount'];
         if($withdrawn == $ghInfo['g_amount']){        
           $status = 'Full Payment';
@@ -51,7 +51,7 @@
         $stmt->execute(array(':amount'=>$order['ord_amount'], ':ghID'=>$order['gh_id'], ':status'=>$status));
 
 
-        //Update PH table on successfuly payment confirmation
+        //Update Donate table on successfuly payment confirmation
         $paid = $phInfo['paid'] + $order['ord_amount'];
         if($paid == $phInfo['amount']){        
           $status = 'Full Payment';

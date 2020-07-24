@@ -36,14 +36,14 @@
         $stmt->execute(array(':pop'=>$target_path, ':ordID'=>$ordID, ':popDate'=>$popDate));
 
         //Insert Into user notification table
-        $action = $userInfo['first_name'].' '.substr($userInfo['last_name'], 0, 1).'. has uploaded POP for your GH order';
+        $action = $userInfo['first_name'].' '.substr($userInfo['last_name'], 0, 1).'. has uploaded POP for your Receive order';
         $actionUrl = 'user/approve?ordid='.$ordID;
         $type = 'POP Submitted';
 
         $genInfo->userNotification($payeeInfo['login_id'], $action, $type, $actionUrl, $currentTime);
 
         //Insert Into admin notification table
-        $action = $userInfo['first_name'].' '.$userInfo['last_name'].'. has uploaded POP for PH order';
+        $action = $userInfo['first_name'].' '.$userInfo['last_name'].'. has uploaded POP for Donate order';
         $actionUrl = 'approve?ordid='.$ordID;
         $type = 'POP Submitted';
         $username = '';

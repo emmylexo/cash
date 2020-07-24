@@ -13,8 +13,8 @@
     <thead>
       <tr>
         <th></th>
-        <th>PH Date</th>
-        <th>PH Amount</th>
+        <th>Donate Date</th>
+        <th>Donate Amount</th>
         <th>Interest</th>
         <th>Bonus</th>
         <th>Total</th>
