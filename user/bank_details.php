@@ -57,14 +57,14 @@ if (isset($_FILES['pop']['name']) and $_FILES['pop']['name'] != "") {
             $front->requestApproval($payerId, $approvalLink, $payerEmail, $phone);
 
             //Insert Into user notification table
-            $action = $userTable['first_name'] . ' ' . substr($userTable['last_name'], 0, 1) . '. had uploaded POP for your GH order';
+            $action = $userTable['first_name'] . ' ' . substr($userTable['last_name'], 0, 1) . '. had uploaded POP for your Receive order';
             $actionUrl = 'user/approve?ordid=' . $activationOrder['ord_id'];
             $type = 'POP Submitted';
 
             $genInfo->userNotification($userLoginID, $action, $type, $actionUrl, $currentTime);
 
             //Insert Into admin notification table
-            $action = $userTable['first_name'] . ' ' . $userTable['last_name'] . '. has uploaded POP for PH order';
+            $action = $userTable['first_name'] . ' ' . $userTable['last_name'] . '. has uploaded POP for Donate order';
             $actionUrl = 'approve?ordid=' . $activationOrder['ord_id'];;
             $type = 'POP Submitted';
             $username = '';
@@ -348,9 +348,9 @@ include(ROOT_PATH . "user/includes/navMenu.php");
                                         <span style="font-size:20px; color:green;">Payment Confirmed!</span>
                                     <?php } ?>
                                     <br><br>
-                                    <span style="font-size:20px; color:red; margin-bottom: 10px; display: block;"> Activation fee is to be Paid to the Account to begin donation after payments upload prove of payment using the button below </span>
+                                    <span style="font-size:20px; color:red; margin-bottom: 10px; display: block;"> Activation fee is to be Paid to the Account to begin donation after payments upload proof of payment using the button below </span>
                                     <?php if ($activationOrder['ord_status'] == 0) { ?>
-                                        <label for="pop" class="btn btn-success btn-sm">Upload Prove of Payment </label>
+                                        <label for="pop" class="btn btn-success btn-sm">Upload Proof of Payment </label>
                                         <form role="form" method="post" action="" enctype="multipart/form-data"
                                               style="float:left;"><br>
                                             <input style="display:none" type="file" name="pop" id="pop"

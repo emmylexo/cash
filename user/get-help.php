@@ -20,7 +20,7 @@
     }
 
     if($ph["gh_status"] == 1) {
-      $error[] = "You can not make GH request twice!";
+      $error[] = "You can not make Receive request twice!";
     }
 
     if(!isset($bankInfo['bank']) OR $bankInfo['bank'] == ''){
@@ -33,7 +33,7 @@
     $rcomitAmt = ($recomitInfo['amount'] * $configInfo['recommit_perc']) / 100;
 
     if(!$recomitInfo['paid'] >= $rcomitAmt){
-      $error[] = "Oops! ".$configInfo['recommit_perc']."% recommitment payment is required to enable you make a successful GH request! <a href='".BASE_URL."user/donation'>Click here</a> to recommit.";
+      $error[] = "Oops! ".$configInfo['recommit_perc']."% recommitment payment is required to enable you make a successful Receive request! <a href='".BASE_URL."user/donation'>Click here</a> to recommit.";
     }
 
 
@@ -96,11 +96,11 @@
            </div>
   <?php } }elseif(isset($_GET['submitted'])){?>
    <div class="alert alert-success">
-      <i class="fa fa-check-square"></i> &nbsp; GH request Sent!
+      <i class="fa fa-check-square"></i> &nbsp; Receive request Sent!
    </div>
   <?php } if(isset($_GET['recommit'])){?>
    <div class="alert alert-success" style="color:green">
-      <i class="fa fa-check-square"></i> &nbsp; <b>Good News!</b> <?php echo $defaultCurrency['c_symbol'].number_format($_GET['recommit']); ?> has been recommited from your expected GH Amount.
+      <i class="fa fa-check-square"></i> &nbsp; <b>Good News!</b> <?php echo $defaultCurrency['c_symbol'].number_format($_GET['recommit']); ?> has been recommited from your expected Receive Amount.
    </div>
   <?php }?>
 
@@ -118,7 +118,7 @@
   </form>
   </div>
   <div class="col-sm-4">
-     <a href="#custom-modal" class="btn btn-default btn-md waves-effect waves-light m-b-30" data-animation="fadein" data-plugin="custommodal" data-overlaySpeed="200" data-overlayColor="#36404a"><i class="md md-add"></i> Make GH Request</a>
+     <a href="#custom-modal" class="btn btn-default btn-md waves-effect waves-light m-b-30" data-animation="fadein" data-plugin="custommodal" data-overlaySpeed="200" data-overlayColor="#36404a"><i class="md md-add"></i> Make Receive Request</a>
   </div>
 </div>
 <div class="table-responsive">
@@ -128,7 +128,7 @@
       <tr>
         <th>#</th>
         <th>GH Amount</th>
-        <th>Recieved</th>
+        <th>Received</th>
         <th>Balance</th>
         <th>Status</th>
         <th>Request Date</th>

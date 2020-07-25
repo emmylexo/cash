@@ -30,12 +30,11 @@ if (!isset($bankInfo['bank'])
 
 //Redirect to bank_details if user is not approved
 $url = pathinfo($_SERVER['REQUEST_URI']);
-if (!isset($activationOrder['ord_status']) OR ($activationOrder['ord_status'] !== 1) OR ($activationOrder['ord_status'] === '')) {
-    if (($url['filename'] !== 'bank_details')) {
-        $genInfo->redirect(BASE_URL . 'user/bank_details');
-        exit();
-    }
+if ($userInfo['status'] != 'Active' && ($url['filename'] !== 'bank_details')) {
+    $genInfo->redirect(BASE_URL . 'user/bank_details');
+    exit();
 }
+
 
 //Redirect Package page if user has not PH
 if ($countPHs < 1 && $userInfo['status'] == 'Active') {

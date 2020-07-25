@@ -2,7 +2,7 @@
   <div style="width:100%; background:#FFF5EE; border: 2px dashed brown; border-radius:10px;margin-bottom:15px; height:auto; padding:15px;">
     <div class="row">
       <div class="col-sm-5">
-        <h3>Your new PH order Timer:</h3>
+        <h3>Your new Donate order Timer:</h3>
       </div>
       <div class="col-sm-4">
         <span id="paymentTimer" style="font-size:30px; color:red;"></span>
@@ -23,7 +23,7 @@
   <div style="width:100%; background:#EAF7EA; border: 2px dashed green; border-radius:10px;margin-bottom:15px; height:auto; padding:15px;">
     <div class="row">
       <div class="col-sm-6">
-        <h3 style="font-size:16px">POP Uploaded for your GH order, confirmation timer:</h3>
+        <h3 style="font-size:16px">POP Uploaded for your Receive order, confirmation timer:</h3>
       </div>
       <div class="col-sm-4">
         <span id="paymentTimer" style="font-size:30px; color:red;"></span>

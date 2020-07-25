@@ -79,7 +79,7 @@ if(isset($configInfo['sms_note'])
             $this->strUserName = $SMSusername;
             $this->strPassword = $SMSpassword;
             $this->strSender = $SMSsender;
-            $this->strMessage = "Hi ".$firstName.", u just received new merge for ur PH Order in ".$SMSsitename.". Ur actions is urgently required!";
+            $this->strMessage = "Hi ".$firstName.", u just received new merge for ur Donate Order in ".$SMSsitename.". Ur actions is urgently required!";
             $this->strMobile = $newPhone;
             $this->strMessageType = 0;
             $this->strDlr = 0;
@@ -120,7 +120,7 @@ if(isset($configInfo['sms_note'])
     $obj->Submit ();
 
 
-    //SMS - PH Merge Notification 
+    //SMS - Donate Merge Notification
     include(ROOT_PATH . "smsTemplates/mergeGH.php");
 }
 ?>

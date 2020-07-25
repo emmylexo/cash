@@ -159,7 +159,7 @@
               <th>Full Name</th>
               <th>Email</th>
               <th>Phone</th>
-              <th>1st PH Amount</th>
+              <th>1st Donate Amount</th>
               <th>Bonus</th>
               <th>Signup Date</th>
               <th>Status</th>

@@ -79,7 +79,7 @@ if(isset($configInfo['sms_note'])
             $this->strUserName = $SMSusername;
             $this->strPassword = $SMSpassword;
             $this->strSender = $SMSsender;
-            $this->strMessage = "Congrats ".$firstName.", u just received new merge for ur GH Order in ".$SMSsitename.". Pls login to the system to followup with the payer.";
+            $this->strMessage = "Congrats ".$firstName.", u just received new merge for ur Receive Order in ".$SMSsitename.". Pls login to the system to followup with the payer.";
             $this->strMobile = $newPhone;
             $this->strMessageType = 0;
             $this->strDlr = 0;

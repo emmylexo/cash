@@ -152,7 +152,7 @@
   </table>
   <?php }else{?>      
       <p>No record found!</p>
-      <a href="#custom-modal" class="btn btn-default btn-md waves-effect waves-light m-b-30" data-animation="fadein" data-plugin="custommodal" data-overlaySpeed="200" data-overlayColor="#36404a"><i class="md md-add"></i> Make PH Request</a>
+      <a href="#custom-modal" class="btn btn-default btn-md waves-effect waves-light m-b-30" data-animation="fadein" data-plugin="custommodal" data-overlaySpeed="200" data-overlayColor="#36404a"><i class="md md-add"></i> Make Donate Request</a>
   <?php }?> 
   </div>
 

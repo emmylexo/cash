@@ -42,7 +42,7 @@
            </div>
   <?php } }elseif(isset($_GET['submitted'])){?>
    <div class="alert alert-success">
-      <i class="fa fa-check-square"></i> &nbsp; PH request submitted!
+      <i class="fa fa-check-square"></i> &nbsp; Donate request submitted!
    </div>
   <?php }?>
 
@@ -60,7 +60,7 @@
   </form>
   </div>
   <div class="col-sm-4">
-     <a href="<?php echo BASE_URL?>user/donation" class="btn btn-default btn-md waves-effect waves-light m-b-30"  data-overlayColor="#36404a"><i class="md md-add"></i> Make PH Request</a>
+     <a href="<?php echo BASE_URL?>user/donation" class="btn btn-default btn-md waves-effect waves-light m-b-30"  data-overlayColor="#36404a"><i class="md md-add"></i> Make Donate Request</a>
   </div>
 </div>
 <div class="table-responsive">

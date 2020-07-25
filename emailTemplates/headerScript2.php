@@ -1,5 +1,5 @@
 <?php
-	//Target PH & GH merge notification
+	//Target Donate & Receive merge notification
 	if(isset($ordID)){
 		$order = $genInfo->orderSingle($ordID);
 		$phInfo = $genInfo->userInfo($order['payer_id']);

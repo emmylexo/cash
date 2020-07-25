@@ -220,7 +220,7 @@
               <input type="number" name="popUpload" parsley-trigger="change" required 
               class="form-control" id="popUpload" value="<?php if(isset($configInfo['credit_pop_upload'])){echo $configInfo['credit_pop_upload'];}?>">
             </td>        
-            <td><label style="font-style: italic;font-weight:300" for="popUpload">Enter Credibility score reward for user who paid for PH order on time</label></td> 
+            <td><label style="font-style: italic;font-weight:300" for="popUpload">Enter Credibility score reward for user who paid for Donate order on time</label></td>
           </tr>
 
           <tr>  
@@ -269,16 +269,16 @@
           </tr>
 
           <tr>  
-            <td style="text-align: right;"><label for="phPerc">PH Percent (%)</label></td>
+            <td style="text-align: right;"><label for="phPerc">Donate Percent (%)</label></td>
             <td>
               <input type="number" name="phPerc" parsley-trigger="change" required 
               class="form-control" id="phPerc" value="<?php if(isset($configInfo['ph_percentage'])){echo $configInfo['ph_percentage'];}?>">
             </td>        
-            <td><label style="font-style: italic;font-weight:300" for="phPerc">Enter PH benefit by Percentage (%)</label></td> 
+            <td><label style="font-style: italic;font-weight:300" for="phPerc">Enter Donate benefit by Percentage (%)</label></td>
           </tr>
 
           <tr>  
-            <td style="text-align: right;"><label for="phMaturity">PH Maturity Period</label></td>
+            <td style="text-align: right;"><label for="phMaturity">Donate Maturity Period</label></td>
             <td>
               <select name="phMaturity" required class="form-control">
                 <option value="<?php echo $configInfo['ph_maturity'];?>"><?php echo $configInfo['ph_maturity'];?></option>
@@ -294,11 +294,11 @@
               </select>
               
             </td>        
-            <td><label style="font-style: italic;font-weight:300" for="phMaturity">PH maturity period, eg: 7 days</label></td> 
+            <td><label style="font-style: italic;font-weight:300" for="phMaturity">Donate maturity period, eg: 7 days</label></td>
           </tr>
           
           <tr>  
-            <td style="text-align: right;"><label for="phMaturity">PH Order Timer</label></td>
+            <td style="text-align: right;"><label for="phMaturity">Donate Order Timer</label></td>
             <td>
               <select name="phTimer" required class="form-control">
                 <option value="<?php echo $configInfo['ph_timer'];?>"><?php echo $configInfo['ph_timer'];?></option>
@@ -314,7 +314,7 @@
               </select>
               
             </td>        
-            <td><label style="font-style: italic;font-weight:300" for="phTimer">PH order timer, order automatically deleted and defaulter user blocked if this timer elapses</label></td> 
+            <td><label style="font-style: italic;font-weight:300" for="phTimer">Donate order timer, order automatically deleted and defaulter user blocked if this timer elapses</label></td>
           </tr>
 
           <tr>  
@@ -358,11 +358,11 @@
           </tr>
 
           <tr>  
-            <td style="text-align: right;"><label for="phNote">PH Order Note</label></td>
+            <td style="text-align: right;"><label for="phNote">Donate Order Note</label></td>
             <td>
               <textarea class="form-control" id="phNote" name="phNote"><?php if(isset($configInfo['pay_instructions'])){echo $configInfo['pay_instructions'];}?></textarea>
             </td>        
-            <td><label style="font-style: italic;font-weight:300" for="phNote">Instruction on PH order</label></td> 
+            <td><label style="font-style: italic;font-weight:300" for="phNote">Instruction on Donate order</label></td>
           </tr>
 
           <tr>  
@@ -370,7 +370,7 @@
             <td>
               <textarea class="form-control" id="ghNote" name="ghNote"><?php if(isset($configInfo['pay_confirmation_instr'])){echo $configInfo['pay_confirmation_instr'];}?></textarea>
             </td>        
-            <td><label style="font-style: italic;font-weight:300" for="ghNote">Instruction on GH POP confirmation</label></td> 
+            <td><label style="font-style: italic;font-weight:300" for="ghNote">Instruction on Receive POP confirmation</label></td>
           </tr>
 
           <tr>  
@@ -382,7 +382,7 @@
                 <option value="Disabled">Disabled</option>
               </select>
             </td>        
-            <td><label style="font-style: italic;font-weight:300" for="autoMerging">You can control merging method here, if enabled, available PH participants would be merged to pay available GH participants automatically</label></td> 
+            <td><label style="font-style: italic;font-weight:300" for="autoMerging">You can control merging method here, if enabled, available Donate participants would be merged to pay available Receive participants automatically</label></td>
           </tr>
 
           <tr>  

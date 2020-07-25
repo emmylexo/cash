@@ -47,11 +47,11 @@
     $bankInfo->execute();
     $bankInfo = $bankInfo->fetch(PDO::FETCH_ASSOC);
 
-    $activationOrder = $genInfo->runQuery("SELECT * FROM orders WHERE payer_id = $userLoginID");
-    $activationOrder->execute();
-    $activationOrder = $activationOrder->fetch(PDO::FETCH_ASSOC);
+    $activateOrder = $genInfo->runQuery("SELECT * FROM orders WHERE payer_id = $userLoginID");
+    $activateOrder->execute();
+    $activateOrder = $activateOrder->fetch(PDO::FETCH_ASSOC);
 
-    if ($_GET['user'] !== $activationOrder['payer_id']) {
+    if ($_GET['user'] !== $activateOrder['payer_id']) {
         $genInfo->redirect(BASE_URL . 'user/');
         exit();
     }
@@ -79,7 +79,7 @@
                     <h5 class="card-title text-uppercase font-weight-bold">Proof Of Payment [POP]</h5>
                 </div>
                 <div class="pop-image">
-                    <img src="<?php echo str_replace('../', '', $activationOrder['pop']); ?>" alt="POP">
+                    <img src="<?php echo str_replace('../', '', $activateOrder['pop']); ?>" alt="POP">
                 </div>
             </div>
         </div>

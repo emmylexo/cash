@@ -2,7 +2,9 @@
 <div class="footer">
     <div class="agileinfo_footer_bottom1">
         <div class="container">
-                <p><?php echo date('Y').' '.$siteInfo['site_name'];?>. All Rights Reserved | Designed by: <a target="_blank" href="http://www.ojaolawebsolution.com">OWS</a> </p>
+                <p><?php echo date('Y').' '.$siteInfo['site_name'];?>. All Rights Reserved | Designed by: <a target="_blank" href="http://cash360.com.ng">Cash360 Team</a> </p>
+                <small style="text-align: center; display: block;">For Complaints <a href="mailto:admin@cash360.com.ng">admin@cash360.com.ng</a></small>
+                <small style="text-align: center; display: block;">For Enquiries <a href="mailto:info@cash360.com.ng">info@cash360.com.ng</a></small>
             <div class="clearfix"> </div>
         </div>
     </div>

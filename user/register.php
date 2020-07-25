@@ -220,14 +220,14 @@
         <div class="form-group">
             <div class="col-xs-12">
                 <label>Referral Username</label>
-                <input class="form-control" type="text" name="referral" placeholder="Referral email" value="<?php echo $refEmail;?>">
+                <input class="form-control" type="text" name="referral" placeholder="Referral username" value="<?php echo $refEmail;?>">
             </div>
         </div>
         <?php }else{?>
         <div class="form-group">
             <div class="col-xs-12">
                 <label>Referral Username</label>
-                <input class="form-control" type="text" name="referral" placeholder="Referral email (optional)" value="">
+                <input class="form-control" type="text" name="referral" placeholder="Referral username (optional)" value="">
             </div>
         </div>        
         <?php }?>

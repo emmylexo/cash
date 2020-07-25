@@ -38,7 +38,7 @@
         WHERE ord_id=:ordID");     
       $stmt->execute(array(':currentTime'=>$currentTime, ':ordID'=>$ordID));  
 
-      //Update GH table on successfuly payment confirmation
+      //Update Receive table on successfuly payment confirmation
       $withdrawn = $ghInfo['g_withdrawn'] + $order['ord_amount'];
       if($withdrawn == $ghInfo['g_amount']){        
         $status = 'Full Payment';
@@ -54,7 +54,7 @@
       $stmt->execute(array(':amount'=>$order['ord_amount'], ':ghID'=>$order['gh_id'], ':status'=>$status));
 
 
-      //Update PH table on successfuly payment confirmation
+      //Update Donate table on successfuly payment confirmation
       $paid = $phInfo['paid'] + $order['ord_amount'];
       if($paid == $ghInfo['g_amount']){        
         $status = 'Full Payment';
@@ -119,7 +119,7 @@
       WHERE login_id=:payerID");     
     $stmt->execute(array(':payerID'=>$order['payer_id']));
 
-    //Update PH table
+    //Update Donate table
     $stmt = $genInfo->runQuery("UPDATE provide_help 
       SET ph_status='Frozen'
       WHERE ph_id=:phID");     
@@ -138,7 +138,7 @@
     $genInfo->userNotification($payeeInfo['login_id'], $action, $type, $actionUrl, $currentTime);
 
     //Insert Into user notification table
-    $action = 'The administrator has deleted your PH order which was reported by the receiver and your account has been restricted.';
+    $action = 'The administrator has deleted your Donate order which was reported by the receiver and your account has been restricted.';
     $actionUrl = 'user/notifications?che';
     $type = 'Account restriction';
 

@@ -43,14 +43,14 @@
       $phi = 0;
       foreach ($myPHs as $ph) {
         if($phi==1) break;
-        //Check if previous PH amount is greater
+        //Check if previous Donate amount is greater
         if($ph['amount'] > $phAmt){
-          $error[] = 'Oppps! Your previous PH Package is: <u>'.$siteInfo['site_name'].'-'.$ph['plan'].': '.$defaultCurrency['c_symbol'].number_format($ph['amount']).'</u>, you can not order lower package!';
+          $error[] = 'Oppps! Your previous Donate Package is: <u>'.$siteInfo['site_name'].'-'.$ph['plan'].': '.$defaultCurrency['c_symbol'].number_format($ph['amount']).'</u>, you can not order lower package!';
         }
 
-        //Check if previous PH is fully paid
+        //Check if previous Donate is fully paid
         if($ph['amount'] != $ph['paid']){
-          $error[] = "Oppps! It seems your previous PH amount has not be fully paid, you can only have one pending PH at a time!";
+          $error[] = "Oppps! It seems your previous Donate amount has not be fully paid, you can only have one pending Donate at a time!";
         }
 
         $phi++;
@@ -145,7 +145,7 @@
            </div>
   <?php } }elseif(isset($_GET['submitted'])){?>
    <div class="alert alert-success">
-      <i class="fa fa-check-square"></i> &nbsp; PH request submitted!
+      <i class="fa fa-check-square"></i> &nbsp; Donate request submitted!
    </div>
   <?php }?>
         <div class="row pricing-plan">

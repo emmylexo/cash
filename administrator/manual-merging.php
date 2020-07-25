@@ -88,7 +88,7 @@
          $payiInfo = $adm->userInfo($payer["login_id"]);
          $balPayer = $payer["amount"] - $mOrderPayer; ?>
          	<?php if($balPayer != 0){?>
-				<option value="<?php echo $payer["ph_id"];?>"><?php echo $payiInfo["first_name"].' '.$payiInfo["last_name"].' - PH Amount: '.$defaultCurrency['c_symbol'].number_format($balPayer);?></option>
+				<option value="<?php echo $payer["ph_id"];?>"><?php echo $payiInfo["first_name"].' '.$payiInfo["last_name"].' - Donate Amount: '.$defaultCurrency['c_symbol'].number_format($balPayer);?></option>
 			<?php }?>
 <?php  } }?>
 </select>
@@ -116,7 +116,7 @@
             $bal = $payee["g_amount"] - $mOrder;?>
         <?php if($bal != 0){?>
             <option value="<?php echo $payee["gh_id"];?>">
-            <?php echo $payiInfo["first_name"].' '.$payiInfo["last_name"].' - GH Amount: '.$defaultCurrency['c_symbol'].number_format($bal);?>
+            <?php echo $payiInfo["first_name"].' '.$payiInfo["last_name"].' - Receive Amount: '.$defaultCurrency['c_symbol'].number_format($bal);?>
             </option>
         <?php }?>
 <?php  } }?>

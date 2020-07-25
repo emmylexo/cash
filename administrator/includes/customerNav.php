@@ -11,11 +11,11 @@
            </a>
 
            <a href="<?php echo BASE_URL.'administrator/customer-orders?uid='.$uID;?>" class="btn btn-white btn-md waves-effect <?php if(isset($pageSec) AND $pageSec == 'orders'){echo 'active';}?>">
-              PH Orders
+              Donate Orders
            </a>
 
            <a href="<?php echo BASE_URL.'administrator/customer-gh-orders?uid='.$uID;?>" class="btn btn-white btn-md waves-effect <?php if(isset($pageSec) AND $pageSec == 'GH'){echo 'active';}?>">
-              GH Orders
+              Receive Orders
            </a>
           
            <a href="<?php echo BASE_URL.'administrator/customer-referrals?uid='.$uID;?>" class="btn btn-white btn-md waves-effect <?php if(isset($pageSec) AND $pageSec == 'referral'){echo 'active';}?>">
