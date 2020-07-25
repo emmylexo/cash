@@ -13,15 +13,15 @@
 <link href="user/assets/css/pages.css" rel="stylesheet" type="text/css" />
 <link href="user/assets/css/components.css" rel="stylesheet" type="text/css" />
 
-<div class="banner_agile_info_wthree">
-	<h2><?php echo $siteInfo['site_name'];?> Community</h2>
-</div>
 <div class="sleekslider" id="home">
 	<!-- Slider Pages -->
 	<div class="slide active bg-1">
 		<div class="slide-container">
 			<div class="slide-content">
-				<p class="wow fadeInLeft" data-wow-duration=".8s" data-wow-delay=".2s">A social financial platform</p>	
+				<p class="wow fadeInLeft" data-wow-duration=".8s" data-wow-delay=".2s">A social financial platform</p>
+        <div class="banner_agile_info_wthree">
+          <h2><?php echo $siteInfo['site_name'];?> Community</h2>
+        </div>
 			</div>
 
 		</div>
@@ -30,8 +30,10 @@
 	<div class="slide bg-2">
 		<div class="slide-container">
 			<div class="slide-content">
-				<p class="wow fadeInLeft" data-wow-duration=".8s" data-wow-delay=".4s">A social financial platform</p>	
-
+				<p class="wow fadeInLeft" data-wow-duration=".8s" data-wow-delay=".4s"> Get 50% profit on all donations in 5 days</p>
+        <div class="banner_agile_info_wthree">
+          <h2><?php echo $siteInfo['site_name'];?> Community</h2>
+        </div>
 			</div>
 		</div>				
 	</div>
@@ -39,8 +41,10 @@
 	<div class="slide bg-3">
 		<div class="slide-container">
 			<div class="slide-content">
-					<p class="wow fadeInLeft" data-wow-duration=".8s" data-wow-delay=".2s">A social financial platform</p>	
-
+					<p class="wow fadeInLeft" data-wow-duration=".8s" data-wow-delay=".2s">Get 5% referral bonus</p>
+        <div class="banner_agile_info_wthree">
+          <h2><?php echo $siteInfo['site_name'];?> Community</h2>
+        </div>
 			</div>
 		</div>				
 	</div>
@@ -48,8 +52,10 @@
 	<div class="slide bg-4">
 		<div class="slide-container">
 			<div class="slide-content">
-				<p class="wow fadeInLeft" data-wow-duration=".8s" data-wow-delay=".4s">A social financial platform</p>	
-
+				<p class="wow fadeInLeft" data-wow-duration=".8s" data-wow-delay=".4s">Get up to 1 million naira behavioral bonus</p>
+        <div class="banner_agile_info_wthree">
+          <h2><?php echo $siteInfo['site_name'];?> Community</h2>
+        </div>
 			</div>
 		</div>				
 	</div>
@@ -57,7 +63,10 @@
 	<div class="slide bg-5">
 		<div class="slide-container">
 			<div class="slide-content">
-				<p class="wow fadeInLeft" data-wow-duration=".8s" data-wow-delay=".2s">A social financial platform</p>
+				<p class="wow fadeInLeft" data-wow-duration=".8s" data-wow-delay=".2s">Pay and confirm payments on time and earn credibility bonus</p>
+        <div class="banner_agile_info_wthree">
+          <h2><?php echo $siteInfo['site_name'];?> Community</h2>
+        </div>
 			</div>
 		</div>				
 	</div>

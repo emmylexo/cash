@@ -128,7 +128,7 @@
       <tr>
         <th>#</th>
         <th>GH Amount</th>
-        <th>Recieved</th>
+        <th>Received</th>
         <th>Balance</th>
         <th>Status</th>
         <th>Request Date</th>
